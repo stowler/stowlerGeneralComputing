@@ -70,7 +70,7 @@ R is the way and the light. It is a complete statistics analysis language suppor
 4. install Rstudio Desktop from downloaded .dmg file
  
 
-## Install on debian/ubuntu linux:
+## Install on ubuntu linux:
 
 See http://cran.r-project.org/bin/linux/ubuntu/README.html
 
@@ -81,3 +81,8 @@ See http://cran.r-project.org/bin/linux/ubuntu/README.html
 	sudo apt-get install r-base r-base-dev
 	
 Then download the rstudio [.deb installation file from the rstudio website](http://www.rstudio.com/ide/download/desktop). Install by double-clicking on it, and after installation it should appear in Applications -> Development -> Rstudio .
+
+## Install on debian linux (TBD):
+
+See the [cran instructions for debian](http://cran.r-project.org/bin/linux/debian/)
+
