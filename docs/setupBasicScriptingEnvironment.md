@@ -57,5 +57,27 @@ And for OS X only you will also want to:
 
 	sudo port install tmux-pasteboard
 	
+
+
+# R and Rstudio
+R is the way and the light. It is a complete statistics analysis language supported by a universe of active statisticians and developers. Rstudio is a graphical integrated development environment for the R lanuage.
+
+## Install on OS X Mountain/Lion:
+
+1. [download R]( http://cran.stat.ucla.edu/bin/macosx/) (precompiled binary of R base packages)
+2. install R from the download
+3. [download Rstudio Desktop](http://www.rstudio.com/ide/download/desktop) (precompiled binary)
+4. install Rstudio Desktop from downloaded .dmg file
+ 
+
+## Install on debian/ubuntu linux:
+
+See http://cran.r-project.org/bin/linux/ubuntu/README.html
+
+	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
+	# add to /etc/apt/sources.list:
+	# deb http://cran.stat.ucla.edu/bin/linux/ubuntu precise/
+	sudo apt-get update
+	sudo apt-get install r-base r-base-dev
 	
-	
+Then download the rstudio [.deb installation file from the rstudio website](http://www.rstudio.com/ide/download/desktop). Install by double-clicking on it, and after installation it should appear in Applications -> Development -> Rstudio .
