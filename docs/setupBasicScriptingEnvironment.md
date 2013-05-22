@@ -51,11 +51,11 @@ Each of these packages can be installed on debian/ubuntu linux by typing:
 
 These are the package names to substitute into the commands above (no square quotes when you actually type/paste this:)
 
-	sed awk cut wc bc getopt curl wget tmux tee tree htop
+	curl wget tmux tee tree htop
 	
 And for OS X only you will also want to:
 
-	sudo port install tmux-pasteboard
+	sudo port install getopt tmux-pasteboard
 	
 
 
