@@ -19,7 +19,7 @@ Though modern OS X has a number of useful *nix tools pre-installed, sometimes th
  * install [Command Line Developer Tools](https://developer.apple.com/downloads/index.action)
 2. [download](http://www.macports.org/install.php) and [install](http://www.macports.org/install.php#pkg) macports
 3. open a NEW terminal window
-4. notice that the install edited (/etc/bash_profile? ~/.profile? something else?) to add /opt/local paths to the front of $PATH
+4. type "echo $PATH" and notice that the install prepended /opt/local paths to the front of $PATH
 5. sudo port -v selfupdate
 6. sudo port install [package name]
 
@@ -51,12 +51,16 @@ Each of these packages can be installed on debian/ubuntu linux by typing:
 
 These are the package names to substitute into the commands above (no square quotes when you actually type/paste this:)
 
-	curl wget tmux tee tree htop
+	curl wget tmux tree htop imagemagick
 	
-And for OS X only you will also want to:
+And for OS X only you will also want these:
 
-	sudo port install getopt tmux-pasteboard
+	getopt tmux-pasteboard
 	
+	# ...and then follow these instructions: 
+	To enable tmux-MacOSX-pasteboard add following line to ~/.tmux.conf replacing
+	'bash' with your actual shell:
+	set-option -g default-command "/opt/local/bin/reattach-to-user-namespace bash"
 
 
 # R and Rstudio
@@ -82,7 +86,36 @@ See http://cran.r-project.org/bin/linux/ubuntu/README.html
 	
 Then download the rstudio [.deb installation file from the rstudio website](http://www.rstudio.com/ide/download/desktop). Install by double-clicking on it, and after installation it should appear in Applications -> Development -> Rstudio .
 
-## Install on debian linux (TBD):
+## Install on linux (debian 7.0 wheezy neurodebian virtual machine):
 
-See the [cran instructions for debian](http://cran.r-project.org/bin/linux/debian/)
+Based on the [CRAN installation instructions for debian](http://cran.r-project.org/bin/linux/debian/) .
 
+First get the key:
+
+    sudo gpg --keyserver pgp.mit.edu --recv-key 381BA480
+    sudo gpg -a --export 381BA480 > /tmp/jranke_cran.asc
+    sudo apt-key add /tmp/jranke_cran.asc
+
+...then add these lines to /etc/apt/sources.list :
+
+    deb http://cran.stat.ucla.edu/bin/linux/debian wheezy-cran3/
+    deb-src http://cran.stat.ucla.edu/bin/linux/debian wheezy-cran3/
+
+...and install binaries:
+
+    sudo apt-get update
+    sudo apt-get install r-base r-base-dev r-recommended r-mathlib
+    sudo apt-get install r-cran-rodbc r-cran-rsprng
+    sudo apt-get install libx11-dev libglu1-mesa-dev libxml2-dev libopenmpi-dev
+    sudo apt-get install cdbs debhelper tcl-tclreadline tk8.5-dev
+    sudo apt-get install -y openjdk-7-jdk icedtea-7-plugin
+    sudo update-java-alternatives -l
+    sudo update-java-alternatives -s java-1.7.0-openjdk-i386
+
+...and configure in R:
+
+    sudo R CMD javareconf
+    install.packages('Rcmdr', dependencies=TRUE)
+    install.packages('JGR', dependencies=TRUE)
+    install.packages('Deducer', dependencies=TRUE)
+    install.packages('DeducerExtras', dependencies=TRUE)
