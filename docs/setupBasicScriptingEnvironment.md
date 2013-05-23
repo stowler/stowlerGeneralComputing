@@ -111,11 +111,22 @@ First get the key:
     sudo apt-get install -y openjdk-7-jdk icedtea-7-plugin
     sudo update-java-alternatives -l
     sudo update-java-alternatives -s java-1.7.0-openjdk-i386
+    sudo R CMD javareconf
 
 ...and configure in R:
 
-    sudo R CMD javareconf
+    sudo R --no-save
+    update.packages(ask=FALSE)
     install.packages('Rcmdr', dependencies=TRUE)
     install.packages('JGR', dependencies=TRUE)
     install.packages('Deducer', dependencies=TRUE)
     install.packages('DeducerExtras', dependencies=TRUE)
+    install.packages('DeducerRichOutput', repos = 'http://R-Forge.R-Project.org', dependencies=TRUE)
+
+...and test:
+
+    sudo R --no-save
+    library(Rcmdr)
+    library(JGR)
+    JGR()
+    library(Deducer)
