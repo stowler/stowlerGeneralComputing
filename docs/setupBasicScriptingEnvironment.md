@@ -105,7 +105,7 @@ First get the key:
 
     sudo apt-get update
     sudo apt-get install r-base r-base-dev r-recommended r-mathlib
-    sudo apt-get install r-cran-rodbc r-cran-rsprng
+    sudo apt-get install r-cran-rodbc r-cran-rsprng unixodbc unixodbc-dev
     sudo apt-get install libx11-dev libglu1-mesa-dev libxml2-dev libopenmpi-dev
     sudo apt-get install cdbs debhelper tcl-tclreadline tk8.5-dev
     sudo apt-get install -y openjdk-7-jdk icedtea-7-plugin
