@@ -86,47 +86,57 @@ See http://cran.r-project.org/bin/linux/ubuntu/README.html
 	
 Then download the rstudio [.deb installation file from the rstudio website](http://www.rstudio.com/ide/download/desktop). Install by double-clicking on it, and after installation it should appear in Applications -> Development -> Rstudio .
 
-## Install on linux (debian 7.0 wheezy neurodebian virtual machine):
 
-Based on the [CRAN installation instructions for debian](http://cran.r-project.org/bin/linux/debian/) .
 
-First get the key:
+## Install on linux (Debian 7.0 wheezy neurodebian virtual machine):
+
+These instructions are based on the 
+[CRAN installation instructions for installing R on Debian 7.0 wheezy](http://cran.r-project.org/bin/linux/debian/).
+Because of the transition of R from the 2.x to 3.x series, special care must me taken to install
+a minimum of pre-compiled 3.x binaries, followed by compiling current packages from source.
+
+First get the key for the R 3.x backports:
 
     sudo gpg --keyserver pgp.mit.edu --recv-key 381BA480
     sudo gpg -a --export 381BA480 > /tmp/jranke_cran.asc
     sudo apt-key add /tmp/jranke_cran.asc
 
-...then add these lines to /etc/apt/sources.list :
+...and add these lines to `/etc/apt/sources.list` :
 
     deb http://cran.stat.ucla.edu/bin/linux/debian wheezy-cran3/
     deb-src http://cran.stat.ucla.edu/bin/linux/debian wheezy-cran3/
 
-...and install binaries:
+...and install the R base and dependencies from the backports repository:
 
     sudo apt-get update
-    sudo apt-get install r-base r-base-dev r-recommended r-mathlib
-    sudo apt-get install r-cran-rodbc r-cran-rsprng unixodbc unixodbc-dev
-    sudo apt-get install libx11-dev libglu1-mesa-dev libxml2-dev libopenmpi-dev
-    sudo apt-get install cdbs debhelper tcl-tclreadline tk8.5-dev
-    sudo apt-get install -y openjdk-7-jdk icedtea-7-plugin
-    sudo update-java-alternatives -l
-    sudo update-java-alternatives -s java-1.7.0-openjdk-i386
-    sudo R CMD javareconf
+    sudo apt-get install r-base r-base-dev
 
-...and configure in R:
+Update the installed packages via CRAN:
 
     sudo R --no-save
     update.packages(ask=FALSE)
-    install.packages('Rcmdr', dependencies=TRUE)
-    install.packages('JGR', dependencies=TRUE)
-    install.packages('Deducer', dependencies=TRUE)
-    install.packages('DeducerExtras', dependencies=TRUE)
-    install.packages('DeducerRichOutput', repos = 'http://R-Forge.R-Project.org', dependencies=TRUE)
+    q()
 
-...and test:
+Because 3D operations can be problematic, it is sometimes helpful to install and test rgl before adding any other packages:
 
     sudo R --no-save
+    install.packages('rgl', dependencies=TRUE)
+    install.packages('car', dependencies=TRUE)
+    library(rgl)
+    demo(rgl)
+    library(car)
+    data(airquality)
+    scatter3d(airquality$Month, airquality$Temp, airquality$Wind, fit="linear", residuals=TRUE, bg="white", axis.scales=TRUE, grid=TRUE, ellipsoid=TRUE, xlab="Month", ylab="Temp", zlab="Wind")
+    identify3d(airquality$Month, airquality$Temp, airquality$Wind, axis.scales=TRUE, labels=row.names(airquality))
+    q()
+    
+Rcmdr is a reasonable package to install next, 
+as it depends on a number of other commonly use packages 
+and provides point-and-click access to many stastical operations:
+
+    sudo R --no-save
+    install.packages('Rcmdr', dependencies=TRUE)
     library(Rcmdr)
-    library(JGR)
-    JGR()
-    library(Deducer)
+    q()
+    
+    
