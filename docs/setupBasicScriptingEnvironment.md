@@ -90,9 +90,11 @@ Then download the rstudio [.deb installation file from the rstudio website](http
 
 ## Install on linux (Debian 7.0 wheezy neurodebian virtual machine):
 
-These instructions are based on the 
+For any neurodebian wheezy virtual machine (VM) installed and updated using 
+[these instructions](https://github.com/stowler/brainwhere/blob/master/docs/setupNeuroimagingEnvironment.md#neurodebian-virtual-machine-vm)
+, a working installation of R can be added with the following steps. These instructions are based on the 
 [CRAN installation instructions for installing R on Debian 7.0 wheezy](http://cran.r-project.org/bin/linux/debian/).
-Because of the transition of R from the 2.x to 3.x series, special care must me taken to install
+Because of the transition from the 2.x R series to 3.x, special care must me taken to install
 a minimum of pre-compiled 3.x binaries, followed by compiling current packages from source.
 
 First get the key for the R 3.x backports:
