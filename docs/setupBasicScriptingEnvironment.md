@@ -88,9 +88,9 @@ Then download the rstudio [.deb installation file from the rstudio website](http
 
 
 
-## Install on linux (Debian 7.0 wheezy neurodebian virtual machine):
+## Install on linux (Debian 7.2.0 wheezy neurodebian virtual machine):
 
-For any neurodebian wheezy virtual machine (VM) installed and updated using 
+For a neurodebian wheezy virtual machine (VM) installed and updated using 
 [these instructions](http://j.mp/setupNeurodebianVM), a working installation of R can be added with the following steps. These instructions are based on the 
 [CRAN installation instructions for installing R on Debian 7.0 wheezy](http://cran.r-project.org/bin/linux/debian/).
 Because of the transition from the 2.x R series to 3.x, special care must me taken to install
