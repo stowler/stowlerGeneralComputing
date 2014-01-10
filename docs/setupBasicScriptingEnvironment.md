@@ -9,7 +9,7 @@ All of my scripts and documentation assume that these resources have been instal
 
 Though modern OS X has a number of useful *nix tools pre-installed, sometimes they're missing or outdated. Macports provides an easy way to install these tools.
 
-## Install Macports On Mountain Lion:
+## Install Macports On OS X Mavericks:
 
 1. confirm that the [prequisites](http://www.macports.org/install.php) are installed per the macports webpage
  * install [Xquartz](http://xquartz.macosforge.org/)
@@ -91,8 +91,7 @@ Then download the rstudio [.deb installation file from the rstudio website](http
 ## Install on linux (Debian 7.0 wheezy neurodebian virtual machine):
 
 For any neurodebian wheezy virtual machine (VM) installed and updated using 
-[these instructions](https://github.com/stowler/brainwhere/blob/master/docs/setupNeuroimagingEnvironment.md#neurodebian-virtual-machine-vm)
-, a working installation of R can be added with the following steps. These instructions are based on the 
+[these instructions](http://j.mp/setupNeurodebianVM), a working installation of R can be added with the following steps. These instructions are based on the 
 [CRAN installation instructions for installing R on Debian 7.0 wheezy](http://cran.r-project.org/bin/linux/debian/).
 Because of the transition from the 2.x R series to 3.x, special care must me taken to install
 a minimum of pre-compiled 3.x binaries, followed by compiling current packages from source.
@@ -119,26 +118,30 @@ Update the installed packages via CRAN:
     update.packages(ask=FALSE)
     q()
 
-Because 3D operations can be problematic, it is sometimes helpful to install and test rgl before adding any other packages:
+Because 3D operations and GUI toolkits can be touchy, it is sometimes helpful to install and test rgl and Rcmdr before adding any other R packages:
 
     sudo R --no-save
     install.packages('rgl', dependencies=TRUE)
     install.packages('car', dependencies=TRUE)
+    install.packages('Rcmdr', dependencies=TRUE)
+    install.packages('RcmdrPlugin.HH', dependencies=TRUE)
+    q()
+    
+Reboot the Neurodebian VM to settle any graphics dependencies that were installed with those packages.
+
+Test R, including its 3D and GUI toolkits. None of these shold produce errors:
+
+    sudo R --no-save
     library(rgl)
     demo(rgl)
     library(car)
-    data(airquality)
-    scatter3d(airquality$Month, airquality$Temp, airquality$Wind, fit="linear", residuals=TRUE, bg="white", axis.scales=TRUE, grid=TRUE, ellipsoid=TRUE, xlab="Month", ylab="Temp", zlab="Wind")
-    identify3d(airquality$Month, airquality$Temp, airquality$Wind, axis.scales=TRUE, labels=row.names(airquality))
-    q()
-    
-Rcmdr is a reasonable package to install next, 
-as it depends on a number of other commonly use packages 
-and provides point-and-click access to many stastical operations:
-
-    sudo R --no-save
-    install.packages('Rcmdr', dependencies=TRUE)
     library(Rcmdr)
-    q()
-    
-    
+    (mouse:) Tools -> Load Rcmdr plug-ins... -> RcmdrPlugin.HH
+    (mouse:) Data -> Data in packages -> Read data set from an attached package... -> PACKAGE: datasets, DATA SET: mtcars
+    (mouse:) Data set: mtcars
+    (mouse:) Graphs -> 3d graph -> 3d scatterplot... (HH). DV: mpg, IVs: disp, hp.
+    (mouse:) Graphs -> 3d graph -> Identify observations with mouse...
+    ...or the CLI version of those last two:
+    data(mtcars, package="datasets")
+    scatter3dHH(mtcars$disp, mtcars$mpg, mtcars$hp, fit="linear", bg="white", grid=TRUE, squares=FALSE, xlab="disp", ylab="mpg", zlab="hp")
+    identify3d(mtcars$disp, mtcars$mpg, mtcars$hp, labels=row.names(mtcars))
