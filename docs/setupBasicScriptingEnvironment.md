@@ -5,39 +5,47 @@ All of my scripts and documentation assume that these resources have been instal
 
 
 
-# MacPorts (Apple OS X only)
+MacPorts (Apple OS X only)
+=================================
 
-Though modern OS X has a number of useful *nix tools pre-installed, sometimes they're missing or outdated. Macports provides an easy way to install these tools.
+Though modern OS X has a number of useful *nix tools pre-installed, sometimes they are missing or outdated. Macports provides an easy way to install these tools.
 
-## Install Macports On OS X Mavericks:
+Here's how I install Macports On OS X Mavericks:
 
-1. confirm that the [prequisites](http://www.macports.org/install.php) are installed per the macports webpage
- * install [Xquartz](http://xquartz.macosforge.org/)
- * logout and log back in to active Xquartz
- * install Xcode via Mac App Store
- * run xcodebuild -license
- * install [Command Line Developer Tools](https://developer.apple.com/downloads/index.action)
-2. [download](http://www.macports.org/install.php) and [install](http://www.macports.org/install.php#pkg) macports
-3. open a NEW terminal window
-4. type "echo $PATH" and notice that the install prepended /opt/local paths to the front of $PATH
-5. sudo port -v selfupdate
-6. sudo port install [package name]
+1. Confirm that the [macports prequisites](http://www.macports.org/install.php) are installed:
+	1. Install [Xquartz.](http://xquartz.macosforge.org/)
+	1. Logout and log back in to activate Xquartz.
+	1. Install Xcode via Mac App Store.
+	1. Run `xcodebuild -license`
+	1. Install [Command Line Developer Tools.](https://developer.apple.com/downloads/index.action)
+2. [Download and install macports](http://www.macports.org/install.php) from the .pkg package installer specific for your version of OS X.
+3. Confirm the install worked: open a NEW terminal window, type `echo $PATH`. Notice that the install prepended `/opt/local` paths to the front of your previous $PATH.
+4. Confirm that you can [update macports](http://guide.macports.org/#using.common-tasks) and [install a package](http://guide.macports.org/#using.port.install):
+	5. `sudo port -v selfupdate`
+	6. `sudo port upgrade outdated`
+	7. `sudo port install htop`
 
 
 
-# Git
+Git
+===============================
 
-Git is used to install and manage software repositories. It has both GUI and command-line interfaces, though I just use the CLI.
+Git is a system used to install and manage software repositories. It has both GUI and command-line interfaces, though I just use the CLI.
 
-## Install git / github on OS X Mountain/Lion:
+## Install git on OS X Mavericks:
 
-The Github GUI client also installs the command-line git client. [Download it](http://mac.github.com/) and allow it to install the command-line client when it prompts you at the end. Alternatively you could follow [these instrucitons](https://help.github.com/articles/set-up-git#platform-mac)
+The GitHub GUI client for OS X also installs the command-line git client for OS X. [Just download the GitHub GUI client](http://mac.github.com/) and allow it to install the command-line client when it prompts you at the end. Alternatively you could follow [these instrucitons.](https://help.github.com/articles/set-up-git#platform-mac)
 
 ## Install git on debian/ubuntu linux:
-	sudo apt-get install git
+```
+sudo apt-get install git
+```
 	
+
 	
-# General command-line utilities
+General command-line utilities
+================================
+
 
 Install these. If you don't know why now, you will.
 
@@ -49,7 +57,7 @@ Each of these packages can be installed on debian/ubuntu linux by typing:
 
 	sudo port install [name(s) of the package(s)]
 
-These are the package names to substitute into the commands above (no square quotes when you actually type/paste this:)
+Below is a list of the package names to substitute into the commands above (no square brackets when you actually type/paste these package names into your install command above:)
 
 	curl wget tmux tree htop imagemagick
 	
@@ -57,24 +65,30 @@ And for OS X only you will also want these:
 
 	getopt tmux-pasteboard
 	
-	# ...and then follow these instructions: 
-	To enable tmux-MacOSX-pasteboard add following line to ~/.tmux.conf replacing
+...and then, for OS X only, follow these instructions in the top of the default .tmux.conf: 
+
+	# To enable tmux-MacOSX-pasteboard add following line to ~/.tmux.conf replacing
 	'bash' with your actual shell:
 	set-option -g default-command "/opt/local/bin/reattach-to-user-namespace bash"
 
 
-# R and Rstudio
+
+R and Rstudio
+===================
+
 R is the way and the light. It is a complete statistics analysis language supported by a universe of active statisticians and developers. Rstudio is a graphical integrated development environment for the R lanuage.
 
-## Install on OS X Mountain/Lion:
+## Install R and Rstudio on OS X Mavericks:
 
-1. [download R]( http://cran.stat.ucla.edu/bin/macosx/) (precompiled binary of R base packages)
-2. install R from the download
-3. [download Rstudio Desktop](http://www.rstudio.com/ide/download/desktop) (precompiled binary)
-4. install Rstudio Desktop from downloaded .dmg file
+1. [Download R]( http://cran.stat.ucla.edu/bin/macosx/) as precompiled binary of R base packages.
+2. Install R from the download .pkg file.
+3. [Download Rstudio Desktop](http://www.rstudio.com/ide/download/desktop) as a precompiled binary.
+4. Install Rstudio Desktop from downloaded .dmg file.
+
+To upgrade R or Rstudio Desktop just follow the same instructions. They are both generally good about finding your existing install and either migrating everything over to the new version or warning you if there is going to be trouble.
  
 
-## Install on ubuntu linux:
+## Install R and Rstudio on ubuntu linux:
 
 See http://cran.r-project.org/bin/linux/ubuntu/README.html
 
@@ -88,7 +102,7 @@ Then download the rstudio [.deb installation file from the rstudio website](http
 
 
 
-## Install R on linux (Debian 7.2.0 wheezy neurodebian virtual machine):
+## Install R and Rstudio on Neurodebian 7.2.0 wheezy virtual machine:
 
 For a neurodebian wheezy virtual machine (VM) installed and updated using 
 [these instructions](http://j.mp/setupNeurodebianVM), a working installation of R can be added with the following steps. These instructions are based on the 
