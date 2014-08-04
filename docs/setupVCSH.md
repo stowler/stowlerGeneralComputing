@@ -13,8 +13,10 @@ git config --global user.name “Stephen Towler”
 git config --global user.email stowler@gmail.com
 ```
 
+
+
 1.1. Download and install vcsh and mr
------------------------------------
+----------------------------------------
 
 Choose a location for your initial vcsh and mr checkouts :
 
@@ -42,6 +44,7 @@ sudo make install
 ```
 
 
+
 1.2. Create and push your first vcsh repo
 -------------------------------------------
 
@@ -65,6 +68,8 @@ When complete, configure the local repo for that orign and push it:
 vcsh vcsh-sdt-vim remote add origin https://github.com/stowler/vcsh-sdt-vim.git
 vcsh vim push -u origin master
 ```
+
+
 
 1.3. Customize mr template and push the results
 --------------------------------------------------
@@ -116,10 +121,87 @@ git remote add origin https://github.com/stowler/mr.git
 git push -u origin master
 ```
 
-2. Clone to a second host and confirm sync
-==============================================================================
 
 
-3. Add new vcsh repos
+2. Clone to a second host and test operations
+=============================================
+
+
+2.1. Clone vcsh and mr to second host
+----------------------------------------
+1. Install vcsh and mr (see section 1.1 above)
+2. `vcsh clone https://github.com/stowler/mr.git mr` (adds `mr` and `vcsh` directories to `~/.config`)
+3. `mr update`
+
+
+
+2.2. Test: does editing an existing file work?
+--------------------------------------------
+1. Manually confirm that the second host received the most up-to-date .vimrc
+1. Make some trivial edit to second host's .vimrc
+1. `mr diff` to confirm that the second host's mr sees the edit
+1. Commit and push from second host: `mr commit -m "trivial test edits on second host"`
+1. Use a web browser to confirm that github reflects the commit.
+1. On original (first) host run `mr update`. Manually confirm that the host received the edits.
+
+
+
+2.3. Test: does adding a new file work?
+------------------------------
+TBD
+
+
+2.4. Test: does removing a file work?
+-----------------------------
+TBD
+
+
+2.5. Test: does renaming a file work?
+-----------------------------
+TBD
+
+
+2.6. Test: does moving a file work?
+-----------------------------
+TBD
+
+
+
+3. Add and test new vcsh repo
 ============================
+
+On second host, confirm that mr is current (`mr update`), and if so add .tmux as a second repo.
+
+3.1. Add new vcsh repo
+------------------------
+
+1. Name the vcsh repo:        `repoName=vcsh-sdt-tmux`
+1. Create config file:        `cp ~/.config/mr/available.d/vcsh-sdt-vim.vcsh ~/.config/mr/available.d/$repoName.vcsh`
+1. Edit the new .vcsh file to reflect $repoName
+1. Create symlink:            `cd ~/.config/mr/config.d; ln -s ../available.d/$repoName.vcsh $repoName.vcsh`
+1. Add new .vcsh to mr repo   `vcsh mr add ~/.config/mr/available.d/$repoName.vcsh`
+1. Init the new repo:         `vcsh init $repoName`
+1. Setup ignores:             `vcsh write-gitignore $repoName`
+1. Add the repo's first file: `vcsh $repoName add -f ~/.tmux.conf` 
+1. Commit the new repo:       `vcsh $repoName commit -m "initial commit for $repoName"`
+1. Create the new repo on the github website, which will give you the remote origin.  
+1. Add new repo origin:       `vcsh $repoName remote add origin https://github.com/stowler/$repoName.git`
+1. Push the new repo:         `vcsh $repoName push -u origin master`
+1. Use a web browser to confrim that github reflects the push.
+1. Commit the change to mr:   `vcsh enter mr; git commit -m 'added vcsh-sdt-tmux'; git push -u origin master; exit`
+1. Use a web browser to confirm that github reflects the push.
+
+Optional: should every host have this vcsh repo active per config.d link? If so:
+
+```
+cd ~/.config/mr/config.d
+vcsh enter mr
+git add -f vcsh-sdt-tmux.vcsh
+git push -u origin master
+exit
+```
+
+3.2. Test: does other host receive the new repo?
+--------------------------------------------
+
 
