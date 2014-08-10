@@ -32,6 +32,13 @@ Git
 
 Git is a system used to install and manage software repositories. It has both GUI and command-line interfaces, though I just use the CLI.
 
+Regardless of OS, remember to set some basic git preferences after installation. For me that looks like:
+```
+git config --global user.name “Stephen Towler”
+git config --global user.email stowler@gmail.com
+git config --global color.ui auto
+```
+
 ## Install git on OS X Mavericks:
 
 The GitHub GUI client for OS X also installs the command-line git client for OS X. [Just download the GitHub GUI client](http://mac.github.com/) and allow it to install the command-line client when it prompts you at the end. Alternatively you could follow [these instrucitons.](https://help.github.com/articles/set-up-git#platform-mac)
