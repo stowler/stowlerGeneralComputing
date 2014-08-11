@@ -191,8 +191,18 @@ On second host, confirm that mr is current (`mr update`), and if so add .tmux as
 1. Commit the change to mr:   `vcsh enter mr; git commit -m 'added vcsh-sdt-tmux'; git push -u origin master; exit`
 1. Use a web browser to confirm that github reflects the push.
 
-Optional: should every host have this vcsh repo active per config.d link? If so:
+Then VCSH [needs some help with gitignore](https://github.com/RichiH/vcsh/issues/126):
+```
+repo=myRepoName
+vcsh write-gitignore $repo
+vcsh $repo add -f .gitignore.d/$repo
+vcsh write-gitignore $repo
+vcsh $repo add gitignore.d/$repo
+vcsh $repo commit -m "Add/update gitignore.d/$repo"
+vcsh push $repo -u origin master
+```
 
+Optional: should every host have this vcsh repo active per config.d link? If so:
 ```
 cd ~/.config/mr/config.d
 vcsh enter mr
@@ -200,6 +210,7 @@ git add -f vcsh-sdt-tmux.vcsh
 git push -u origin master
 exit
 ```
+
 
 3.2. Test: does other host receive the new repo?
 --------------------------------------------
