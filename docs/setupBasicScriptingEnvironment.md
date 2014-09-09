@@ -3,6 +3,49 @@ setupBasicScriptingEnvironment.md
 
 All of my scripts and documentation assume that these resources have been installed.
 
+Xcode (OS X only)
+===================
+It's useful to install Xcode first, as it is needed for other packages like git and macports.
+
+1. Install Xcode via Mac App Store.
+1. Run `xcodebuild -license`
+1. Install Apple's Developer [Command Line Tools.](https://developer.apple.com/downloads/index.action)
+
+
+Git
+===============================
+
+Git is a system used to install and manage software repositories. It has both GUI and command-line interfaces, though I recommend you learn to use the more flexible command-line interface.
+
+## Remember to set git preferences!
+Regardless of OS, remember to set some basic git preferences after installation. For me that looks like:
+
+```bash
+git config --global user.name “Stephen Towler”
+git config --global user.email "stowler@gmail.com"
+git config --global color.ui auto
+```
+
+## Install git on OS X Mavericks:
+
+The GitHub GUI client for OS X also installs a command-line git client for OS X. [Just download the GitHub GUI client](http://mac.github.com/) and allow it to install the command-line client when it prompts you at the end. 
+
+If you don't want to install the GUI client you could follow [these instrucitons](https://help.github.com/articles/set-up-git#platform-mac) instead.
+
+Remember to set your user preferences after installation (see above).
+
+## Install git on debian/ubuntu linux:
+
+```bash
+sudo apt-get install git
+```
+
+Remember to set your user preferences after installation (see above).
+	
+
+Install and sync VCSH and MR
+===============================
+Install [VCSH](https://github.com/RichiH/vcsh) and [MR](http://myrepos.branchable.com), and sync existing MR-managed repos to the new host. Follow [my instructions]() if you like.
 
 
 MacPorts (Apple OS X only)
@@ -25,29 +68,6 @@ Here's how I install Macports On OS X Mavericks:
 	6. `sudo port upgrade outdated`
 	7. `sudo port install htop`
 
-
-
-Git
-===============================
-
-Git is a system used to install and manage software repositories. It has both GUI and command-line interfaces, though I just use the CLI.
-
-Regardless of OS, remember to set some basic git preferences after installation. For me that looks like:
-```
-git config --global user.name “Stephen Towler”
-git config --global user.email stowler@gmail.com
-git config --global color.ui auto
-```
-
-## Install git on OS X Mavericks:
-
-The GitHub GUI client for OS X also installs the command-line git client for OS X. [Just download the GitHub GUI client](http://mac.github.com/) and allow it to install the command-line client when it prompts you at the end. Alternatively you could follow [these instrucitons.](https://help.github.com/articles/set-up-git#platform-mac)
-
-## Install git on debian/ubuntu linux:
-```
-sudo apt-get install git
-```
-	
 
 	
 General command-line utilities
