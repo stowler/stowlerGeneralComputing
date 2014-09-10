@@ -1,7 +1,11 @@
-These are my provisional notes on how to get started with VCSH. 
+These are my provisional notes on how to get started using VCSH and MR to manage your dotfiles.
 
 
-I followed a combination of the [vcsh author documentation](https://github.com/RichiH/vcsh/tree/master/doc) and [this Nov 2013 Linux Journal article.](http://www.linuxjournal.com/content/manage-your-configs-vcsh) My inital host was a debian wheezy 7.4.0 VM (no backports).
+I followed a combination of the [vcsh author documentation][] and [this Nov 2013 Linux Journal article.][] My initial host was a debian wheezy 7.4.0 VM (no backports).
+
+[vcsh author documentation]: https://github.com/RichiH/vcsh/tree/master/doc
+[this Nov 2013 Linux Journal article.]: http://www.linuxjournal.com/content/manage-your-configs-vcsh
+
 
 
 1. One-time installation and first push of vcsh and mr
@@ -23,6 +27,7 @@ mkdir -p ${HOME}/srcUpstream/git
 
 
 Clone the [vcsh repository](https://github.com/RichiH/vcsh) and make it available system-wide:
+
 ```bash
 cd ${HOME}/srcUpstream/git
 git clone git://github.com/RichiH/vcsh.git
@@ -125,7 +130,7 @@ git push -u origin master
 
 
 2.1. Sync your VCSH/MR repos to a new host
-----------------------------------------
+-----------------------------------------
 1. Install VCSH and MR per section 1.1 above.
 2. `vcsh clone https://github.com/stowler/mr.git mr` , which creates:
    ```bash
@@ -143,6 +148,8 @@ git push -u origin master
    ```
 
 3. `mr update`
+
+4. `ls -al ~/.config/mr/*.d/` to confirm that any vcsh repos that should be active for this host are linked from `~/.config/mr/available.d/*.vcsh` to `~/.config/mr/config.d/`
 
 
 

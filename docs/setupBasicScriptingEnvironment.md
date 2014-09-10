@@ -1,10 +1,12 @@
 setupBasicScriptingEnvironment.md
 ===================================
 
-All of my scripts and documentation assume that these resources have been installed.
+All of my scripts and documentation assume that these resources have been installed. Below is a reasonable order for installation along with some of my install and config notes. 
 
-Xcode (OS X only)
-===================
+
+
+1 Install Xcode (OS X only)
+==============================
 It's useful to install Xcode first, as it is needed for other packages like git and macports.
 
 1. Install Xcode via Mac App Store.
@@ -12,7 +14,8 @@ It's useful to install Xcode first, as it is needed for other packages like git 
 1. Install Apple's Developer [Command Line Tools.](https://developer.apple.com/downloads/index.action)
 
 
-Git
+
+2 Install git
 ===============================
 
 Git is a system used to install and manage software repositories. It has both GUI and command-line interfaces, though I recommend you learn to use the more flexible command-line interface.
@@ -43,13 +46,93 @@ sudo apt-get install git
 Remember to set your user preferences after installation (see above).
 	
 
-Install and sync VCSH and MR
-===============================
-Install [VCSH](https://github.com/RichiH/vcsh) and [MR](http://myrepos.branchable.com), and sync existing MR-managed repos to the new host. Follow [my instructions]() if you like.
+
+3 Install and sync VCSH and MR
+=============================================
+Follow [my instructions][] to install [VCSH][] and [MR][], and sync existing MR-managed repos to the new host.
+
+[VCSH]: https://github.com/RichiH/vcsh
+[MR]: http://myrepos.branchable.com
+[my instructions]: https://github.com/stowler/stowlerGeneralComputing/blob/master/docs/setupVCSH.md#2-clone-to-a-new-host-and-test-operations
 
 
-MacPorts (Apple OS X only)
-=================================
+4 Confirm important dotfiles
+==================================
+
+I use individual VCSH repositories to sync and track my most important dotfiles:
+
+```bash
+$ vcsh list
+mr
+vcsh-sdt-bash
+vcsh-sdt-tmux
+vcsh-sdt-vim
+```
+
+The VCSH repo called `vcsh-sdt-bash` is where I manage my shell-related dotfiles:
+
+```bash
+$ vcsh list-tracked-by vcsh-sdt-bash
+/Users/stowler/.aliases
+/Users/stowler/.bash_profile
+/Users/stowler/.bash_prompt
+/Users/stowler/.bash_stowlerPublic
+/Users/stowler/.bashrc
+/Users/stowler/.exports
+/Users/stowler/.gitignore.d/vcsh-sdt-bash
+```
+
+In this arrangement, `.bash_profile` has a line that sources all of the other dotfiles in that repo.  
+path,bash_prompt,exports,aliases,functions,extra
+
+
+## dotfiles sourced directly from mathiasbynens
+I source these directly from the [mathiasbynens dotfiles repo][]. The `.bash_profile` sources all of the other files. 
+
+TBD: how do I bootstrap from the repo to my homedir and watch for changes?
+
+### .aliases
+This provides smart aliasing of ls, as well as a number of other aliases like `afk` and `...`.
+
+### .bash_profile
+In addition to setting a number of shell options, this file also has a line that sources all of the other dotfiles in my vcsh-sdt-bash repo.
+
+### .bashrc
+This file mostly just displaces an existing .bashrc
+
+### .exports
+Exports reasonable values for environmental variables like EDITOR, HIST*, LANG, and GREP_OPTIONS
+TBD: pull out my content
+
+
+
+## dotfiles adapted from mathiasbynens
+
+### .bash_prompt
+This is my custom-edited version of the original from the [mathiasbynens dotfiles repo][]
+
+## dotfiles and settings managed through .extra
+As a way of adding custom commands and configs without forking mathiasbynens, I've added some of my own customizations to .extra, which is the last file sourced by .bash_profile
+
+
+## .path
+.path isn't in the vcsh-sdt-bash file list above because its config is pretty machine specific. Excerpted from https://github.com/mathiasbynens/dotfiles/blob/master/README.md :
+
+>   If ~/.path exists, it will be sourced along with the other files, before any feature testing (such as detecting which version of ls is being used) takes place.
+
+This means that `.path` isn't particularly useful for things like `$FSLDIR/data/standard`, since the values of $FSLDIR isn't defined in `.exports` until *after* `.path` is sourced.
+
+
+
+## note about .profile from macports:
+
+
+[mathiasbynens dotfiles repo]: https://github.com/mathiasbynens/dotfiles
+
+
+
+4 Install MacPorts (OS X only)
+==============================================
 
 Though modern OS X has a number of useful *nix tools pre-installed, sometimes they are missing or outdated. Macports provides an easy way to install these tools.
 
@@ -70,8 +153,8 @@ Here's how I install Macports On OS X Mavericks:
 
 
 	
-General command-line utilities
-================================
+5 Install general command-line utilities
+============================================
 
 
 Install these. If you don't know why now, you will.
@@ -100,8 +183,8 @@ And for OS X only you will also want these:
 
 
 
-R and Rstudio
-===================
+6 Install R and Rstudio
+============================
 
 R is the way and the light. It is a complete statistics analysis language supported by a universe of active statisticians and developers. Rstudio is a graphical integrated development environment for the R lanuage.
 
