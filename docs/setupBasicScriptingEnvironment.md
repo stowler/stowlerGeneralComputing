@@ -7,11 +7,12 @@ All of my scripts and documentation assume that these resources have been instal
 
 1 Install Xcode (OS X only)
 ==============================
-It's useful to install Xcode first, as it is needed for other packages like git and macports.
+It's useful to install Xcode first, as it is needed for other packages like git and macports. Here's how I do it in OS X 10.10:
 
 1. Install Xcode via Mac App Store.
-1. Run `xcodebuild -license`
-1. Install Apple's Developer [Command Line Tools.](https://developer.apple.com/downloads/index.action)
+1. Open Xcode and allow additional components to install as prompted.
+1. From the terminal run `sudo xcodebuild -license`.
+1. From the terminal run `sudo xcode-select --install` to install Apple's Developer [Command Line Tools.](https://developer.apple.com/downloads/index.action)
 
 
 
@@ -30,6 +31,8 @@ git config --global color.ui auto
 ```
 
 ## Install git on OS X Mavericks:
+
+OS X 10.10 Yosemite comes with git already available in your `$PATH` as `/usr/bin/git`. At the time of writing that's git version 1.9.3 (Apple Git-50). If you're using Mavericks or something older consider the options below:
 
 The GitHub GUI client for OS X also installs a command-line git client for OS X. [Just download the GitHub GUI client](http://mac.github.com/) and allow it to install the command-line client when it prompts you at the end. 
 
