@@ -21,24 +21,25 @@ If git isn't already installed on your computer, [download and install](https://
 Once git is installed, choose a parent directory into which you will clone the git repos for [vcsh](https://github.com/RichiH/vcsh) and [mr](http://myrepos.branchable.com):
 
 ```bash
-mkdir -p ${HOME}/srcUpstream/git
+mkdir ${HOME}/src.upstream.gitRepos
 ```
-
 
 
 Clone the [vcsh repository](https://github.com/RichiH/vcsh) and make it available system-wide:
 
 ```bash
-cd ${HOME}/srcUpstream/git
+cd ${HOME}/src.upstream.gitRepos
 git clone git://github.com/RichiH/vcsh.git
-sudo ln -s ${HOME}/srcUpstream/git/vcsh/vcsh /usr/local/bin/
+sudo mkdir -p /usr/local/bin
+sudo ln -s ${HOME}/src.upstream.gitRepos/vcsh/vcsh /usr/local/bin/
+ls -l /usr/local/bin # ...which should show /usr/local/bin/vcsh as a symlink
 ```
 
 
 
 Clone the [myrepos repository](http://myrepos.branchable.com) and make it available system-wide:
 ```bash
-cd ${HOME}/srcUpstream/git
+cd ${HOME}/src.upstream.gitRepos
 git clone git://myrepos.branchable.com/ myrepos
 cd myrepos
 sudo make install
@@ -50,7 +51,7 @@ sudo make install
 1.2. Create and push your first vcsh repo
 -------------------------------------------
 
-After you confirm that your `~/.vimrc` and `~/.vim/` exist, initialize a vcsh repo for vim:
+After you confirm that your `~/.vimrc` and `~/.vim/` exist, initialize a vcsh repo for vim configuration:
 ```bash
 cd ${HOME}
 vcsh init vcsh-sdt-vim
@@ -118,7 +119,7 @@ git commit -m ‘initial commit’
 git remote show origin
 # ...so remove it:
 git remote rm origin
-# ...and replace it with the new origin from the github repo you just created on-line:
+# ...and replace it with the new origin from the github repo you just created in the browser:
 git remote add origin https://github.com/stowler/mr.git
 git push -u origin master
 ```
@@ -132,10 +133,10 @@ git push -u origin master
 2.1. Sync your VCSH/MR repos to a new host
 -----------------------------------------
 1. Install VCSH and MR per section 1.1 above.
-2. `vcsh clone https://github.com/stowler/mr.git mr` , which creates:
+2. VCSH clone your MR configs via `vcsh clone https://github.com/stowler/mr.git mr` , which creates:
    ```bash
    ~/.config/
-   ~/.config/git/ignore
+   ~/.config/git/ignore # TBD: not really, as of 20141028. Fix this.
 
    ~/.config/mr/
    ~/.config/mr/available.d/*.vcsh
@@ -147,7 +148,7 @@ git push -u origin master
    ~/.mrconfig
    ```
 
-3. `mr update`
+3. Update all mr-registered repos: `mr update`
 
 4. `ls -al ~/.config/mr/*.d/` to confirm that any vcsh repos that should be active for this host are linked from `~/.config/mr/available.d/*.vcsh` to `~/.config/mr/config.d/`
 
@@ -184,13 +185,38 @@ TBD
 TBD
 
 
+3. Add and a new (non-vcsh) repo to .mrconfig
+======================================
+1. Clone a repo to somewhere reasonable (e.g., `$HOME/src.upstream.gitRepos`):
+   ```bash
+   cd $HOME/src.upstream.gitRepos
+   git clone git://github.com/altercation/solarized.git
+   ```
 
-3. Add and test new vcsh repo
+2. Register the repo into `~/.mrconfig`:
+   ```bash
+   cd $HOME/src.upstream.gitRepos/solarized
+   mr register
+   cat $HOME/.mrconfig #...should show the new repos's entry at the end of .mrconfig
+   ```
+
+3. Via `vcsh`, commit and push the `.mrconfig` changes:
+   ```bash
+   vcsh enter mr
+   git status #...should show modified .mrconfig
+   git add .mrconfig
+   git commit -m 'added upstream repo: solarized'
+   git push -u origin master
+   exit # ...exiting the vcsh repo
+   ```
+
+
+4. Add and test new vcsh repo
 ============================
 
 On second host, confirm that mr is current (`mr update`), and if so add .tmux as a second repo.
 
-3.1. Add new vcsh repo
+4.1. Add new vcsh repo
 ------------------------
 
 1. Name the vcsh repo:        `repoName=vcsh-sdt-tmux`
@@ -230,7 +256,7 @@ exit
 ```
 
 
-3.2. Test: does other host receive the new repo?
+4.2. Test: does other host receive the new repo?
 --------------------------------------------
 
 

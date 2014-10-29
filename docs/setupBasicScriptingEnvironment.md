@@ -7,13 +7,12 @@ All of my scripts and documentation assume that these resources have been instal
 
 1 Install Xcode (OS X only)
 ==============================
-It's useful to install Xcode first, as it is needed for other packages like git and macports. Here's how I do it in OS X 10.10:
+It's useful to install Xcode first, as it is needed for other packages like git and macports. Here's how I do it in OS X 10.10 Yosemite:
 
 1. Install Xcode via Mac App Store.
-1. Open Xcode and allow additional components to install as prompted.
+1. Open Xcode and allow additional components to install if prompted.
 1. From the terminal run `sudo xcodebuild -license`.
-1. From the terminal run `sudo xcode-select --install` to install Apple's Developer [Command Line Tools.](https://developer.apple.com/downloads/index.action)
-
+1. From the terminal run `sudo xcode-select --install` to install Apple's [Developer Command Line Tools.](https://developer.apple.com/downloads/index.action)
 
 
 2 Install git
@@ -52,7 +51,7 @@ Remember to set your user preferences after installation (see above).
 
 3 Install and sync VCSH and MR
 =============================================
-Follow [my instructions][] to install [VCSH][] and [MR][], and sync existing MR-managed repos to the new host.
+Follow [my instructions][] to install [VCSH][] and [MR][], and sync existing MR-managed repos to the new host. I use these packages to keep my dotfiles and git repositories synchronized among hosts.
 
 [VCSH]: https://github.com/RichiH/vcsh
 [MR]: http://myrepos.branchable.com
@@ -133,8 +132,52 @@ This means that `.path` isn't particularly useful for things like `$FSLDIR/data/
 [mathiasbynens dotfiles repo]: https://github.com/mathiasbynens/dotfiles
 
 
+4 Install MacVim (OS X only)
+==============================================
 
-4 Install MacPorts (OS X only)
+Install MacVim (and its command-line version mvim) immediately for something more reliable than built-in vim:
+
+   - Download MacVim from http://code.google.com/p/macvim/
+   - Uncompress and move `MacVim.app` to `/Applications/`
+   - Install `mvim` from the download:
+   
+      ```bash
+      sudo mkdir -p /usr/local/bin
+      sudo mv ~/Downloads/MacVim-*/mvim /usr/local/bin/
+      which mvim
+      mvim #...should open MacVim as GUI
+      ```
+
+   - Set aside OS X native `vi` and `vim`:
+
+      ```bash
+      # Native vim in your path is probably /usr/bin/vim, and 
+      # /usr/bin/vi is probably just a symlink to /usr/bin/vim:
+      which vim
+      which vi
+      # Let's look at the native vim version just for fun:
+      /usr/bin/vim --version
+      # ...and now let's get it out of the way:
+      sudo mv /usr/bin/vim /usr/bin/vim_from_apple
+      ```
+
+   - Set these new symlinks for `vi` and `vim`. Calling them will open `mvim` in terminal mode:
+ 
+      ```bash
+      sudo ln -s /usr/local/bin/mvim /usr/local/bin/vi
+      sudo ln -s /usr/local/bin/mvim /usr/local/bin/vim
+      # ...and confirm that we're using macvim:
+      ls -al /usr/local/bin/mvim /usr/local/bin/vi*
+      which vim
+      vim --version
+      # to get more information on symlinking, open MacVim and type ":h mvim"
+      # :h macvim can be used to get general information about MacVim
+      ```
+
+
+
+
+5 Install MacPorts (OS X only)
 ==============================================
 
 Though modern OS X has a number of useful *nix tools pre-installed, sometimes they are missing or outdated. Macports provides an easy way to install these tools.
@@ -144,23 +187,22 @@ Here's how I install Macports On OS X Mavericks:
 1. Confirm that the [macports prequisites](http://www.macports.org/install.php) are installed:
 	1. Install [Xquartz.](http://xquartz.macosforge.org/)
 	1. Logout and log back in to activate Xquartz.
-	1. Install Xcode via Mac App Store.
-	1. Run `xcodebuild -license`
-	1. Install [Command Line Developer Tools.](https://developer.apple.com/downloads/index.action)
+	1. Install Xcode via Mac App Store (see above).
+	1. Install Xcode's Command Line Developer Tools (see above).
 2. [Download and install macports](http://www.macports.org/install.php) from the .pkg package installer specific for your version of OS X.
-3. Confirm the install worked: open a NEW terminal window, type `echo $PATH`. Notice that the install prepended `/opt/local` paths to the front of your previous $PATH.
+3. Confirm the install worked: open a NEW terminal window, type `echo $PATH`. Notice that the install prepended `/opt/local` paths to the front of your previous `$PATH`.
 4. Confirm that you can [update macports](http://guide.macports.org/#using.common-tasks) and [install a package](http://guide.macports.org/#using.port.install):
 	5. `sudo port -v selfupdate`
 	6. `sudo port upgrade outdated`
 	7. `sudo port install htop`
-
+5. There's no point in having Spotlight index macport files, so omit `/opt/local` from Spotlight via System Preferences -> Spotlight -> Privacy.
 
 	
-5 Install general command-line utilities
+6 Install general command-line utilities
 ============================================
 
 
-Install these. If you don't know why now, you will.
+Install these utilities. If you don't know why now, you will. This will take negligable time on debian/ubuntu linux, but about 2.5 of macports compiling on a 2.8 GHz i5 iMac.
 
 Each of these packages can be installed on debian/ubuntu linux by typing:
 
@@ -172,7 +214,7 @@ Each of these packages can be installed on debian/ubuntu linux by typing:
 
 Below is a list of the package names to substitute into the commands above (no square brackets when you actually type/paste these package names into your install command above:)
 
-	curl wget tmux tree htop imagemagick
+	curl wget tmux tree htop slurm imagemagick
 	
 And for OS X only you will also want these:
 
@@ -186,7 +228,7 @@ And for OS X only you will also want these:
 
 
 
-6 Install R and Rstudio
+7 Install R and Rstudio
 ============================
 
 R is the way and the light. It is a complete statistics analysis language supported by a universe of active statisticians and developers. Rstudio is a graphical integrated development environment for the R lanuage.
