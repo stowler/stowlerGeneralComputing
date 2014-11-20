@@ -8,7 +8,7 @@ I followed a combination of the [vcsh author documentation][] and [this Nov 2013
 
 
 
-1. One-time installation and first push of vcsh and mr
+1. One-time only: installation and initial push of vcsh and mr
 =========================================================
 
 
@@ -40,7 +40,7 @@ ls -l /usr/local/bin # ...which should show /usr/local/bin/vcsh as a symlink
 Clone the [myrepos repository](http://myrepos.branchable.com) and make it available system-wide:
 ```bash
 cd ${HOME}/src.upstream.gitRepos
-git clone git://myrepos.branchable.com/ myrepos
+git clone git://myrepos.branchable.com/myrepos
 cd myrepos
 sudo make install
 # ...this installs the executable /usr/bin/mr and its supporting files
@@ -185,9 +185,11 @@ TBD
 TBD
 
 
-3. Add and a new (non-vcsh) repo to .mrconfig
-======================================
-1. Clone a repo to somewhere reasonable (e.g., `$HOME/src.upstream.gitRepos`):
+3. Add an existing (non-vcsh) repo to .mrconfig
+====================================================
+MR can also sync non-vcsh repos so that you have the same repos available on all of your hosts.
+
+1. Clone an existing non-vcsh repo to somewhere reasonable (e.g., `$HOME/src.upstream.gitRepos` or `$HOME/src.mywork.gitRepos`):
    ```bash
    cd $HOME/src.upstream.gitRepos
    git clone git://github.com/altercation/solarized.git
@@ -221,7 +223,7 @@ On second host, confirm that mr is current (`mr update`), and if so add .tmux as
 
 1. Name the vcsh repo:        `repoName=vcsh-sdt-tmux`
 1. Create config file:        `cp ${HOME}/.config/mr/available.d/vcsh-sdt-vim.vcsh ${HOME}/.config/mr/available.d/$repoName.vcsh`
-1. Edit the new .vcsh file to reflect $repoName
+1. Edit the new .vcsh file to reflect `$repoName`
 1. Create symlink:            `cd ${HOME}/.config/mr/config.d; ln -s ../available.d/$repoName.vcsh $repoName.vcsh`
 1. Add new .vcsh to mr repo   `vcsh mr add ${HOME}/.config/mr/available.d/$repoName.vcsh`
 1. Init the new repo:         `vcsh init $repoName`
@@ -234,26 +236,27 @@ On second host, confirm that mr is current (`mr update`), and if so add .tmux as
 1. Use a web browser to confrim that github reflects the push.
 1. Commit the change to mr:   `vcsh enter mr; git commit -m 'added vcsh-sdt-tmux'; git push -u origin master; exit`
 1. Use a web browser to confirm that github reflects the push.
+1. Optional: should every host have this vcsh repo active per config.d link? If so:
+   ```bash
+   cd ${HOME}/.config/mr/config.d
+   vcsh enter mr
+   git add -f vcsh-sdt-tmux.vcsh
+   git commit -m 'added symlink mr/config.d/vcsh-sdt-tmux.vcsh'
+   git push -u origin master
+   exit
+   ```
 
-Then VCSH [needs some help with gitignore](https://github.com/RichiH/vcsh/issues/126):
-```bash
-repo=myRepoName
-vcsh write-gitignore $repo
-vcsh $repo add -f .gitignore.d/$repo
-vcsh write-gitignore $repo
-vcsh $repo add gitignore.d/$repo
-vcsh $repo commit -m "Add/update gitignore.d/$repo"
-vcsh push $repo -u origin master
-```
+1. Then VCSH [made need some help with gitignore](https://github.com/RichiH/vcsh/issues/126) (TBD: remove this step if this bug has been fixed):
+   ```bash
+   repo=myRepoName
+   vcsh write-gitignore $repo
+   vcsh $repo add -f .gitignore.d/$repo
+   vcsh write-gitignore $repo
+   vcsh $repo add .gitignore.d/$repo
+   vcsh $repo commit -m "Add/update gitignore.d/$repo"
+   vcsh push $repo -u origin master
+   ```
 
-Optional: should every host have this vcsh repo active per config.d link? If so:
-```bash
-cd ${HOME}/.config/mr/config.d
-vcsh enter mr
-git add -f vcsh-sdt-tmux.vcsh
-git push -u origin master
-exit
-```
 
 
 4.2. Test: does other host receive the new repo?

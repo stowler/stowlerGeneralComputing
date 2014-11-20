@@ -15,124 +15,8 @@ It's useful to install Xcode first, as it is needed for other packages like git 
 1. From the terminal run `sudo xcode-select --install` to install Apple's [Developer Command Line Tools.](https://developer.apple.com/downloads/index.action)
 
 
-2 Install git
-===============================
 
-Git is a system used to install and manage software repositories. It has both GUI and command-line interfaces, though I recommend you learn to use the more flexible command-line interface.
-
-## Remember to set git preferences!
-Regardless of OS, remember to set some basic git preferences after installation. For me that looks like:
-
-```bash
-git config --global user.name “Stephen Towler”
-git config --global user.email "stowler@gmail.com"
-git config --global color.ui auto
-```
-
-## Install git on OS X Mavericks:
-
-OS X 10.10 Yosemite comes with git already available in your `$PATH` as `/usr/bin/git`. At the time of writing that's git version 1.9.3 (Apple Git-50). If you're using Mavericks or something older consider the options below:
-
-The GitHub GUI client for OS X also installs a command-line git client for OS X. [Just download the GitHub GUI client](http://mac.github.com/) and allow it to install the command-line client when it prompts you at the end. 
-
-If you don't want to install the GUI client you could follow [these instrucitons](https://help.github.com/articles/set-up-git#platform-mac) instead.
-
-Remember to set your user preferences after installation (see above).
-
-## Install git on debian/ubuntu linux:
-
-```bash
-sudo apt-get install git
-```
-
-Remember to set your user preferences after installation (see above).
-	
-
-
-3 Install and sync VCSH and MR
-=============================================
-Follow [my instructions][] to install [VCSH][] and [MR][], and sync existing MR-managed repos to the new host. I use these packages to keep my dotfiles and git repositories synchronized among hosts.
-
-[VCSH]: https://github.com/RichiH/vcsh
-[MR]: http://myrepos.branchable.com
-[my instructions]: https://github.com/stowler/stowlerGeneralComputing/blob/master/docs/setupVCSH.md#2-clone-to-a-new-host-and-test-operations
-
-
-4 Confirm important dotfiles
-==================================
-
-I use individual VCSH repositories to sync and track my most important dotfiles:
-
-```bash
-$ vcsh list
-mr
-vcsh-sdt-bash
-vcsh-sdt-tmux
-vcsh-sdt-vim
-```
-
-The VCSH repo called `vcsh-sdt-bash` is where I manage my shell-related dotfiles:
-
-```bash
-$ vcsh list-tracked-by vcsh-sdt-bash
-/Users/stowler/.aliases
-/Users/stowler/.bash_profile
-/Users/stowler/.bash_prompt
-/Users/stowler/.bash_stowlerPublic
-/Users/stowler/.bashrc
-/Users/stowler/.exports
-/Users/stowler/.gitignore.d/vcsh-sdt-bash
-```
-
-In this arrangement, `.bash_profile` has a line that sources all of the other dotfiles in that repo.  
-path,bash_prompt,exports,aliases,functions,extra
-
-
-## dotfiles sourced directly from mathiasbynens
-I source these directly from the [mathiasbynens dotfiles repo][]. The `.bash_profile` sources all of the other files. 
-
-TBD: how do I bootstrap from the repo to my homedir and watch for changes?
-
-### .aliases
-This provides smart aliasing of ls, as well as a number of other aliases like `afk` and `...`.
-
-### .bash_profile
-In addition to setting a number of shell options, this file also has a line that sources all of the other dotfiles in my vcsh-sdt-bash repo.
-
-### .bashrc
-This file mostly just displaces an existing .bashrc
-
-### .exports
-Exports reasonable values for environmental variables like EDITOR, HIST*, LANG, and GREP_OPTIONS
-TBD: pull out my content
-
-
-
-## dotfiles adapted from mathiasbynens
-
-### .bash_prompt
-This is my custom-edited version of the original from the [mathiasbynens dotfiles repo][]
-
-## dotfiles and settings managed through .extra
-As a way of adding custom commands and configs without forking mathiasbynens, I've added some of my own customizations to .extra, which is the last file sourced by .bash_profile
-
-
-## .path
-.path isn't in the vcsh-sdt-bash file list above because its config is pretty machine specific. Excerpted from https://github.com/mathiasbynens/dotfiles/blob/master/README.md :
-
->   If ~/.path exists, it will be sourced along with the other files, before any feature testing (such as detecting which version of ls is being used) takes place.
-
-This means that `.path` isn't particularly useful for things like `$FSLDIR/data/standard`, since the values of $FSLDIR isn't defined in `.exports` until *after* `.path` is sourced.
-
-
-
-## note about .profile from macports:
-
-
-[mathiasbynens dotfiles repo]: https://github.com/mathiasbynens/dotfiles
-
-
-4 Install MacVim (OS X only)
+2 Install MacVim (OS X only)
 ==============================================
 
 Install MacVim (and its command-line version mvim) immediately for something more reliable than built-in vim:
@@ -177,7 +61,136 @@ Install MacVim (and its command-line version mvim) immediately for something mor
 
 
 
-5 Install MacPorts (OS X only)
+3 Install git
+===============================
+
+Git is a system used to install and manage software repositories. It has both GUI and command-line interfaces, though I recommend you learn to use the more flexible command-line interface.
+
+## Remember to set git preferences!
+Regardless of OS, remember to set some basic git preferences after installation. For me that looks like:
+
+```bash
+git config --global user.name “Stephen Towler”
+git config --global user.email "stowler@gmail.com"
+git config --global color.ui auto
+```
+
+## Install git on OS X Mavericks:
+
+OS X 10.10 Yosemite comes with git already available in your `$PATH` as `/usr/bin/git`. At the time of writing that's git version 1.9.3 (Apple Git-50). If you're using Mavericks or something older consider the options below:
+
+The GitHub GUI client for OS X also installs a command-line git client for OS X. [Just download the GitHub GUI client](http://mac.github.com/) and allow it to install the command-line client when it prompts you at the end. 
+
+If you don't want to install the GUI client you could follow [these instrucitons](https://help.github.com/articles/set-up-git#platform-mac) instead.
+
+Remember to set your user preferences after installation (see above).
+
+## Install git on debian/ubuntu linux:
+
+```bash
+sudo apt-get install git
+```
+
+Remember to set your user preferences after installation (see above).
+	
+
+
+4 Install and sync VCSH and MR
+=============================================
+Follow [my instructions][] to install [VCSH][] and [MR][], and sync existing MR-managed repos to the new host. I use these packages to keep my dotfiles and git repositories synchronized among hosts.
+
+[VCSH]: https://github.com/RichiH/vcsh
+[MR]: http://myrepos.branchable.com
+[my instructions]: https://github.com/stowler/stowlerGeneralComputing/blob/master/docs/setupVCSH.md#2-clone-to-a-new-host-and-test-operations
+
+
+5 Confirm important dotfiles
+==================================
+
+I use individual VCSH repositories to sync and track my most important dotfiles:
+
+```bash
+$ vcsh list
+mr
+vcsh-sdt-bash
+vcsh-sdt-tmux
+vcsh-sdt-vim
+```
+
+The VCSH repo called `vcsh-sdt-bash` is where I manage my shell-related dotfiles:
+
+```bash
+$ vcsh list-tracked vcsh-sdt-bash
+/Users/stowler/.aliases
+/Users/stowler/.bash_profile
+/Users/stowler/.bash_prompt
+/Users/stowler/.bashrc
+/Users/stowler/.exports
+/Users/stowler/.extra
+/Users/stowler/.gitignore.d/vcsh-sdt-bash
+/Users/stowler/.path
+```
+
+In this arrangement, `.bash_profile` has a line that sources all of the other dotfiles in that repo.  
+path,bash_prompt,exports,aliases,functions,extra
+
+
+## dotfiles sourced directly from mathiasbynens
+I source these directly from the [mathiasbynens dotfiles repo][]. The `.bash_profile` sources all of the other files. 
+
+TBD: how do I bootstrap from the repo to my homedir and watch for changes?
+
+### .aliases
+This provides smart aliasing of ls, as well as a number of other aliases like `afk` and `...`.
+
+### .bash_profile
+In addition to setting a number of shell options, this file also has a line that sources all of the other dotfiles in my vcsh-sdt-bash repo.
+
+### .bashrc
+This file mostly just displaces an existing .bashrc
+
+### .exports
+Exports reasonable values for environmental variables like EDITOR, HIST*, LANG, and GREP_OPTIONS
+TBD: pull out my content
+
+
+
+## dotfiles adapted from mathiasbynens
+
+### .bash_prompt
+This is my custom-edited version of the original from the [mathiasbynens dotfiles repo][]
+
+## dotfiles and settings managed through .extra
+As a way of adding custom commands and configs without forking mathiasbynens, I've added some of my own customizations to .extra, which is the last file sourced by .bash_profile
+
+
+## .path
+.path isn't in the vcsh-sdt-bash file list above because its config is pretty machine specific. Excerpted from https://github.com/mathiasbynens/dotfiles/blob/master/README.md :
+
+>   If ~/.path exists, it will be sourced along with the other files, before any feature testing (such as detecting which version of ls is being used) takes place.
+
+This means that `.path` isn't particularly useful for things like `$FSLDIR/data/standard`, since the values of $FSLDIR isn't defined in `.exports` until *after* `.path` is sourced.
+
+
+
+[mathiasbynens dotfiles repo]: https://github.com/mathiasbynens/dotfiles
+
+
+
+6 Install iTerm2 (OS X only)
+=============================================
+I prefer [iTerm2][] to the OS X default terminal.
+
+1. [Download](http://iterm2.com/downloads.html) the most recent iTerm2 stable release.
+1. Uncompress the download and move iTerm.app to Applications.
+1. Open iTerm2. Select Edit -> Preferences -> General -> "Load preferences from a custom folder or URL", and specify the folder `~/.iterm2`
+1. If you make changes to iTerm2 preferences that you want syncronized to other hosts via VCSH (see above), be sure to click "Save Settings to Folder" to export the updated settings into the VCSH-managed `~/.iterm2`. This must be done after each change or set of changes that you want to propogate. (The active preferences are stored in `~/Library/Preferences/com.googlecode.iterm2.plist`).
+
+
+[iTerm2]: http://iterm2.com/
+
+
+7 Install MacPorts (OS X only)
 ==============================================
 
 Though modern OS X has a number of useful *nix tools pre-installed, sometimes they are missing or outdated. Macports provides an easy way to install these tools.
@@ -198,7 +211,7 @@ Here's how I install Macports On OS X Mavericks:
 5. There's no point in having Spotlight index macport files, so omit `/opt/local` from Spotlight via System Preferences -> Spotlight -> Privacy.
 
 	
-6 Install general command-line utilities
+8 Install general command-line utilities
 ============================================
 
 
@@ -228,7 +241,7 @@ And for OS X only you will also want these:
 
 
 
-7 Install R and Rstudio
+9 Install R and Rstudio
 ============================
 
 R is the way and the light. It is a complete statistics analysis language supported by a universe of active statisticians and developers. Rstudio is a graphical integrated development environment for the R lanuage.
