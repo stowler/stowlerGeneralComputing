@@ -58,6 +58,16 @@ Install MacVim (and its command-line version mvim) immediately for something mor
       # :h macvim can be used to get general information about MacVim
       ```
 
+   - I also like to set these symlinks for `view` (read-only mode) and `vimdiff` (side-by-side diff mode):
+ 
+      ```bash
+      sudo ln -s /usr/local/bin/mvim /usr/local/bin/view
+      sudo ln -s /usr/local/bin/mvim /usr/local/bin/mview
+      sudo ln -s /usr/local/bin/mvim /usr/local/bin/gview
+      sudo ln -s /usr/local/bin/mvim /usr/local/bin/vimdiff
+      sudo ln -s /usr/local/bin/mvim /usr/local/bin/mvimdiff
+      sudo ln -s /usr/local/bin/mvim /usr/local/bin/gvimdiff
+      ```
 
 
 
@@ -73,6 +83,10 @@ Regardless of OS, remember to set some basic git preferences after installation.
 git config --global user.name “Stephen Towler”
 git config --global user.email "stowler@gmail.com"
 git config --global color.ui auto
+# ...you can list all of your environment's git settings with:
+git config --list
+# ...and specific git settings with git config <key>, for example:
+git config user.email
 ```
 
 ## Install git on OS X Mavericks:
