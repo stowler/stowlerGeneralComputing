@@ -80,7 +80,7 @@ Git is a system used to install and manage software repositories. It has both GU
 Regardless of OS, remember to set some basic git preferences after installation. For me that looks like:
 
 ```bash
-git config --global user.name “Stephen Towler”
+git config --global user.name "Stephen Towler"
 git config --global user.email "stowler@gmail.com"
 git config --global color.ui auto
 # ...you can list all of your environment's git settings with:
@@ -89,15 +89,34 @@ git config --list
 git config user.email
 ```
 
-## Install git on OS X Mavericks:
+## Install git on OS X Yosemite:
 
-OS X 10.10 Yosemite comes with git already available in your `$PATH` as `/usr/bin/git`. At the time of writing that's git version 1.9.3 (Apple Git-50). If you're using Mavericks or something older consider the options below:
+OS X 10.10 Yosemite comes with git already available in your `$PATH` as `/usr/bin/git`. At the time of writing that's git version 1.9.3 (Apple Git-50). However, installing the macports version allows you to track a more current version of git:
 
-The GitHub GUI client for OS X also installs a command-line git client for OS X. [Just download the GitHub GUI client](http://mac.github.com/) and allow it to install the command-line client when it prompts you at the end. 
+```bash
+# upate the local ports tree:
+sudo port -v selfupdate
 
-If you don't want to install the GUI client you could follow [these instrucitons](https://help.github.com/articles/set-up-git#platform-mac) instead.
+# list the available variants for git:
+port variants git
 
-Remember to set your user preferences after installation (see above).
+# install git with osxkeychain compatibility:
+sudo port install git +credential_osxkeychain +doc
+# ...at the time of writing my command also included +python27
+
+# the install worked if you get an osxkeychain usage message in response to this command:
+git credential-osxkeychain
+
+# enable os x keychain to store your username and password when connecting to a remote server  
+git config --global credential.helper osxkeychain
+```
+
+If you don't want to install macports or use the OS X default git, there are other options:
+
+1) The GitHub GUI client for OS X also installs a command-line git client for OS X. [Just download the GitHub GUI client](http://mac.github.com/) and allow it to install the command-line client when it prompts you at the end. 
+2) If you don't want to install the GUI client you could follow [these instrucitons](https://help.github.com/articles/set-up-git#platform-mac) instead.
+
+Regardless of which version of git you use, remember to set your user preferences after installation (see above).
 
 ## Install git on debian/ubuntu linux:
 
