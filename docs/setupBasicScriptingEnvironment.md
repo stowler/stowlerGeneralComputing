@@ -71,7 +71,42 @@ Install MacVim (and its command-line version mvim) immediately for something mor
 
 
 
-3 Install git
+3 Install iTerm2 (OS X only)
+=============================================
+I prefer [iTerm2][] to the OS X default terminal.
+
+1. [Download](http://iterm2.com/downloads.html) the most recent iTerm2 stable release.
+1. Uncompress the download and move iTerm.app to Applications.
+1. Open iTerm2. Select Edit -> Preferences -> General -> "Load preferences from a custom folder or URL", and specify the folder `~/.iterm2`
+1. If you make changes to iTerm2 preferences that you want syncronized to other hosts via VCSH (see above), be sure to click "Save Settings to Folder" to export the updated settings into the VCSH-managed `~/.iterm2`. This must be done after each change or set of changes that you want to propogate. (The active preferences are stored in `~/Library/Preferences/com.googlecode.iterm2.plist`).
+
+
+[iTerm2]: http://iterm2.com/
+
+
+4 Install MacPorts (OS X only)
+==============================================
+
+Though modern OS X has a number of useful \*nix tools pre-installed, sometimes they are missing or outdated. Macports provides an easy way to install these tools.
+
+Here's how I install Macports On OS X Mavericks:
+
+1. Confirm that the [macports prequisites](http://www.macports.org/install.php) are installed:
+	1. Install [Xquartz.](http://xquartz.macosforge.org/)
+	1. Logout and log back in to activate Xquartz.
+	1. Install Xcode via Mac App Store (see above).
+	1. Install Xcode's Command Line Developer Tools (see above).
+2. [Download and install macports](http://www.macports.org/install.php) from the .pkg package installer specific for your version of OS X.
+3. Confirm the install worked: open a NEW terminal window, type `echo $PATH`. Notice that the install prepended `/opt/local` paths to the front of your previous `$PATH`.
+4. Confirm that you can [update macports](http://guide.macports.org/#using.common-tasks) and [install a package](http://guide.macports.org/#using.port.install):
+	5. `sudo port -v selfupdate`
+	6. `sudo port upgrade outdated`
+	7. `sudo port install htop`
+5. There's no point in having Spotlight index macport files, so omit `/opt/local` from Spotlight via System Preferences -> Spotlight -> Privacy.
+
+
+
+5 Install git
 ===============================
 
 Git is a system used to install and manage software repositories. It has both GUI and command-line interfaces, though I recommend you learn to use the more flexible command-line interface.
@@ -128,7 +163,7 @@ Remember to set your user preferences after installation (see above).
 	
 
 
-4 Install and sync VCSH and MR
+6 Install and sync VCSH and MR
 =============================================
 Follow [my instructions][] to install [VCSH][] and [MR][], and sync existing MR-managed repos to the new host. I use these packages to keep my dotfiles and git repositories synchronized among hosts.
 
@@ -137,7 +172,7 @@ Follow [my instructions][] to install [VCSH][] and [MR][], and sync existing MR-
 [my instructions]: https://github.com/stowler/stowlerGeneralComputing/blob/master/docs/setupVCSH.md#2-clone-to-a-new-host-and-test-operations
 
 
-5 Confirm important dotfiles
+7 Confirm important dotfiles
 ==================================
 
 I use individual VCSH repositories to sync and track my most important dotfiles:
@@ -183,7 +218,7 @@ In addition to setting a number of shell options, this file also has a line that
 This file mostly just displaces an existing .bashrc
 
 ### .exports
-Exports reasonable values for environmental variables like EDITOR, HIST*, LANG, and GREP_OPTIONS
+Exports reasonable values for environmental variables like EDITOR, HIST\*, LANG, and GREP_OPTIONS
 TBD: pull out my content
 
 
@@ -207,41 +242,6 @@ This means that `.path` isn't particularly useful for things like `$FSLDIR/data/
 
 
 [mathiasbynens dotfiles repo]: https://github.com/mathiasbynens/dotfiles
-
-
-
-6 Install iTerm2 (OS X only)
-=============================================
-I prefer [iTerm2][] to the OS X default terminal.
-
-1. [Download](http://iterm2.com/downloads.html) the most recent iTerm2 stable release.
-1. Uncompress the download and move iTerm.app to Applications.
-1. Open iTerm2. Select Edit -> Preferences -> General -> "Load preferences from a custom folder or URL", and specify the folder `~/.iterm2`
-1. If you make changes to iTerm2 preferences that you want syncronized to other hosts via VCSH (see above), be sure to click "Save Settings to Folder" to export the updated settings into the VCSH-managed `~/.iterm2`. This must be done after each change or set of changes that you want to propogate. (The active preferences are stored in `~/Library/Preferences/com.googlecode.iterm2.plist`).
-
-
-[iTerm2]: http://iterm2.com/
-
-
-7 Install MacPorts (OS X only)
-==============================================
-
-Though modern OS X has a number of useful *nix tools pre-installed, sometimes they are missing or outdated. Macports provides an easy way to install these tools.
-
-Here's how I install Macports On OS X Mavericks:
-
-1. Confirm that the [macports prequisites](http://www.macports.org/install.php) are installed:
-	1. Install [Xquartz.](http://xquartz.macosforge.org/)
-	1. Logout and log back in to activate Xquartz.
-	1. Install Xcode via Mac App Store (see above).
-	1. Install Xcode's Command Line Developer Tools (see above).
-2. [Download and install macports](http://www.macports.org/install.php) from the .pkg package installer specific for your version of OS X.
-3. Confirm the install worked: open a NEW terminal window, type `echo $PATH`. Notice that the install prepended `/opt/local` paths to the front of your previous `$PATH`.
-4. Confirm that you can [update macports](http://guide.macports.org/#using.common-tasks) and [install a package](http://guide.macports.org/#using.port.install):
-	5. `sudo port -v selfupdate`
-	6. `sudo port upgrade outdated`
-	7. `sudo port install htop`
-5. There's no point in having Spotlight index macport files, so omit `/opt/local` from Spotlight via System Preferences -> Spotlight -> Privacy.
 
 	
 8 Install general command-line utilities
