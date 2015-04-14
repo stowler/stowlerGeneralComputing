@@ -126,9 +126,15 @@ git config user.email
 
 ## Install git on OS X Yosemite:
 
-OS X 10.10 Yosemite comes with git already available in your `$PATH` as `/usr/bin/git`. At the time of writing that's git version 1.9.3 (Apple Git-50). However, installing the macports version allows you to track a more current version of git:
+OS X 10.10 Yosemite comes with git already available in your `$PATH` as
+`/usr/bin/git`. At the time of writing that's git version 2.3.2 (Apple Git-55).
+However, installing the macports version allows you to track a more current
+version of git. 
 
 ```bash
+# confirm that your macports folder appears earlier in your path than /usr/bin/ :
+echo $PATH
+
 # upate the local ports tree:
 sudo port -v selfupdate
 
@@ -144,6 +150,8 @@ git credential-osxkeychain
 
 # enable os x keychain to store your username and password when connecting to a remote server  
 git config --global credential.helper osxkeychain
+
+
 ```
 
 If you don't want to install macports or use the OS X default git, there are other options:
