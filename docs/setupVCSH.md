@@ -8,13 +8,8 @@ I followed a combination of the [vcsh author documentation][] and [this Nov 2013
 
 
 
-1. One-time only: installation and initial push of vcsh and mr
+1. Install vcsh and mr
 =========================================================
-
-
-
-1.1. Download and install vcsh and mr
-----------------------------------------
 
 If git isn't already installed on your computer, [download and install](https://github.com/stowler/stowlerGeneralComputing/blob/master/docs/setupBasicScriptingEnvironment.md#git) git before following the rest of these instructions.
 
@@ -48,8 +43,13 @@ sudo make install
 
 
 
-1.2. Create and push your first vcsh repo
--------------------------------------------
+2. ONE TIME ONLY: Create and push your first vcsh repo and mr template
+=======================================================================
+
+You only have to do this once. Not once per host or once per repo...just once.  This establishes a relationship between your vcsh and mr configs.
+
+2.1. Create your first vcsh repo (vim preferences)
+---------------------------------------------------------
 
 After you confirm that your `~/.vimrc` and `~/.vim/` exist, initialize a vcsh repo for vim configuration:
 ```bash
@@ -74,7 +74,7 @@ vcsh vim push -u origin master
 
 
 
-1.3. Customize and push the vcsh mr template
+2.2. Customize and push the vcsh mr template
 --------------------------------------------------
 
 Clone the vcsh mr template:
@@ -126,11 +126,11 @@ git push -u origin master
 
 
 
-2. Clone to a new host and test operations
+3. Clone to a new host and test operations
 =============================================
 
 
-2.1. Sync your VCSH/MR repos to a new host
+3.1. Sync your VCSH/MR repos to a new host
 -----------------------------------------
 1. Install VCSH and MR per section 1.1 above.
 2. VCSH clone your MR configs via `vcsh clone https://github.com/stowler/mr.git mr` , which creates:
@@ -154,7 +154,7 @@ git push -u origin master
 
 
 
-2.2. Test: does editing an existing file work?
+3.2. Test: does editing an existing file work?
 --------------------------------------------
 1. Manually confirm that the second host received the most up-to-date .vimrc
 1. Make some trivial edit to second host's .vimrc
@@ -165,27 +165,27 @@ git push -u origin master
 
 
 
-2.3. Test: does adding a new file work?
+3.3. Test: does adding a new file work?
 ------------------------------
 TBD
 
 
-2.4. Test: does removing a file work?
+3.4. Test: does removing a file work?
 -----------------------------
 TBD
 
 
-2.5. Test: does renaming a file work?
+3.5. Test: does renaming a file work?
 -----------------------------
 TBD
 
 
-2.6. Test: does moving a file work?
+3.6. Test: does moving a file work?
 -----------------------------
 TBD
 
 
-3. Add an existing (non-vcsh) repo to .mrconfig
+4. Add an existing (non-vcsh) repo to .mrconfig
 ====================================================
 MR can also sync non-vcsh repos so that you have the same repos available on all of your hosts.
 
@@ -213,12 +213,12 @@ MR can also sync non-vcsh repos so that you have the same repos available on all
    ```
 
 
-4. Add and test new vcsh repo
+5. Add and test new vcsh repo
 ============================
 
 On second host, confirm that mr is current (`mr update`), and if so add .tmux as a second repo.
 
-4.1. Add new vcsh repo
+5.1. Add new vcsh repo
 ------------------------
 
 1. Name the vcsh repo:        `repoName=vcsh-sdt-tmux`
@@ -259,7 +259,7 @@ On second host, confirm that mr is current (`mr update`), and if so add .tmux as
 
 
 
-4.2. Test: does other host receive the new repo?
+5.2. Test: does other host receive the new repo?
 --------------------------------------------
 
-
+TBD
