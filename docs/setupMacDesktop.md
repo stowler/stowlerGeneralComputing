@@ -58,7 +58,7 @@ Install Apps From Mac App Store
 
 - disk & file utilities:
    - Disk Map
-   - The Duplicate Finder
+   - The Duplicate Finder (Rocky Sand Studio)
    - EasyFind
    - CleanMyDrive
    - Blackmagic Disk Speed Test
