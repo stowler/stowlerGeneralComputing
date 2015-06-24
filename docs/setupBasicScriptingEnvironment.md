@@ -1,6 +1,6 @@
 # Configure a Basic Scripting Environment
 
-_Most of my scripts and documentation require that the following resources have been installed. Below is a reasonable order for installation along with some of my install and configuration notes._
+_Most of my scripts and documentation are written assuming that the following resources have been installed. Below is a reasonable order for installation along with some of my install and configuration notes._
 
 Contents
 =================
@@ -10,7 +10,7 @@ Contents
   * [OS X only: Install MacVim](#os-x-only-install-macvim)
   * [OS X only: Install iTerm2](#os-x-only-install-iterm2)
   * [OS X only: Install MacPorts ](#os-x-only-install-macports-)
-  * [Install git](#install-git)
+  * [Install git](#install-or-upgrade-git)
   * [Install and sync VCSH and MR](#install-and-sync-vcsh-and-mr)
   * [Confirm important dotfiles](#confirm-important-dotfiles)
   * [Solarized-ize the terminal](#solarized-ize-the-terminal)
@@ -40,7 +40,7 @@ Xcode is needed to install later packages like git and macports. Here's how I in
 OS X only: Install MacVim
 ==============================================
 
-Install MacVim (and its command-line version mvim) immediately for access to many more features than the vim shipped with OS X:
+Install MacVim (and its command-line version `mvim`) for access to many more features than the vim shipped with OS X:
 
    - Download MacVim from http://code.google.com/p/macvim/
    - Uncompress and move `MacVim.app` to `/Applications/`
@@ -94,12 +94,12 @@ Install MacVim (and its command-line version mvim) immediately for access to man
 
 OS X only: Install iTerm2
 =============================================
-I prefer [iTerm2][] to the OS X default terminal.
+I prefer [iTerm2][] to the OS X default terminal. Installing and configuring iTerm2:
 
 1. [Download](http://iterm2.com/downloads.html) the most recent iTerm2 stable release.
 1. Uncompress the download and move iTerm.app to Applications.
 1. Open iTerm2. Select Edit -> Preferences -> General -> "Load preferences from a custom folder or URL", and specify the folder `~/.iterm2`
-1. If you make changes to iTerm2 preferences that you want syncronized to other hosts via VCSH (see above), be sure to click "Save Settings to Folder" to export the updated settings into the VCSH-managed `~/.iterm2`. This must be done after each change or set of changes that you want to propogate. (The active preferences are stored in `~/Library/Preferences/com.googlecode.iterm2.plist`).
+1. If you make changes to iTerm2 preferences that you want synchronized to other hosts via VCSH (see below), be sure to click "Save Settings to Folder" to export the updated settings into the VCSH-managed `~/.iterm2`. This must be done after each change or set of changes that you want to propagate. (The active preferences are stored in `~/Library/Preferences/com.googlecode.iterm2.plist` by default).
 
 
 [iTerm2]: http://iterm2.com/
@@ -114,8 +114,8 @@ Though modern OS X has a number of useful \*nix tools pre-installed, sometimes t
 Here's how I install Macports On OS X Mavericks:
 
 1. Confirm that the [macports prequisites](http://www.macports.org/install.php) are installed.
-2. [Download and install macports](http://www.macports.org/install.php) from the .pkg package installer specific for your version of OS X.
-3. Confirm the install worked: open a NEW terminal window, type `echo $PATH`. Notice that the install prepended `/opt/local` paths to the front of the previous `$PATH`.
+2. [Download and install macports](http://www.macports.org/install.php) from the `.pkg` package installer that matches your version of OS X.
+3. Confirm the install worked: open a NEW terminal window, type `echo $PATH`. Notice that the install prepended `/opt/local` paths to the front of the previous `$PATH` entries.
 4. Confirm that you can [update macports](http://guide.macports.org/#using.common-tasks) and [install a package](http://guide.macports.org/#using.port.install):
 	5. `sudo port -v selfupdate`
 	6. `sudo port upgrade outdated`
@@ -124,7 +124,7 @@ Here's how I install Macports On OS X Mavericks:
 
 
 
-Install git
+Install or upgrade git
 ===============================
 
 [Git](https://git-scm.com) is a system used to install and manage software repositories. It has both GUI and command-line interfaces, though I recommend you learn to use the more flexible command-line interface. I also recommend that you use the same version of git on each of your platforms when possible, preferably by upgrading to a recent version. You can check the installed version of git with `git --version`. At the time of writing I'm using version 2.4.3.
@@ -144,13 +144,10 @@ git config user.email
 
 ## Upgrade git on OS X Yosemite:
 
-OS X 10.10 Yosemite comes with git already available in the `$PATH` as
-`/usr/bin/git`. At the time of writing that's git version 2.3.2 (Apple Git-55).
-However, installing the macports version allows you to track a more current
-version of git. 
+OS X 10.10 Yosemite comes with git already available in the `$PATH` as `/usr/bin/git`. At the time of writing that's git version 2.3.2 (Apple Git-55).  Installing the macports version allows you to use a more current version of git. 
 
 ```bash
-# confirm that the macports folder appears earlier in the path than /usr/bin/ :
+# confirm that the macports folder appears earlier in the $PATH than /usr/bin/ :
 echo $PATH
 
 # upate the local ports tree:
@@ -175,7 +172,7 @@ git config --global credential.helper osxkeychain
 If you don't want to install macports or use the OS X default git, there are other options:
 
 1) The GitHub GUI client for OS X also installs a command-line git client for OS X. [Just download the GitHub GUI client](https://mac.github.com/) and allow it to install the command-line client when it prompts you at the end. 
-2) If you don't want to install the GUI client you could follow [these instrucitons](https://help.github.com/articles/set-up-git#platform-mac) instead.
+2) If you don't want to install the GUI client you could follow [these instructions](https://help.github.com/articles/set-up-git#platform-mac) instead.
 
 Regardless of which version of git you use, remember to set your user preferences after installation (see above).
 
@@ -261,7 +258,6 @@ $ vcsh list-tracked vcsh-sdt-bash
 ```
 
 In this arrangement, `.bash_profile` has a line that sources all of the other dotfiles in that repo.  
-path,bash_prompt,exports,aliases,functions,extra
 
 
 ## dotfiles sourced directly from mathiasbynens
@@ -276,11 +272,12 @@ This provides smart aliasing of ls, as well as a number of other aliases like `a
 In addition to setting a number of shell options, this file also has a line that sources all of the other dotfiles in my vcsh-sdt-bash repo.
 
 ### .bashrc
-This file mostly just displaces an existing .bashrc
+This file mostly just displaces a system's default (and usually empty) `.bashrc`.
 
 ### .exports
 Exports reasonable values for environmental variables like EDITOR, HIST\*, LANG, and GREP_OPTIONS
-TBD: pull out my content
+
+*TBD: pull out my content*
 
 
 
@@ -290,16 +287,17 @@ TBD: pull out my content
 This is my custom-edited version of the original from the [mathiasbynens dotfiles repo][]
 
 ## dotfiles and settings managed through .extra
-As a way of adding custom commands and configs without forking mathiasbynens, I've added some of my own customizations to .extra, which is the last file sourced by .bash_profile
+As a way of adding custom commands and configs without forking mathiasbynens, I've added some of my own customizations to `.extra`, which is the last file sourced by `.bash_profile`
 
 
 ## .path
-.path isn't in the vcsh-sdt-bash file list above because its config is pretty machine specific. Excerpted from https://github.com/mathiasbynens/dotfiles/blob/master/README.md :
+`.path` isn't in the vcsh-sdt-bash file list above because its config is pretty machine specific. Excerpted from https://github.com/mathiasbynens/dotfiles/blob/master/README.md :
 
 >   If ~/.path exists, it will be sourced along with the other files, before any feature testing (such as detecting which version of ls is being used) takes place.
 
 This means that `.path` isn't particularly useful for things like `$FSLDIR/data/standard`, since the values of $FSLDIR isn't defined in `.exports` until *after* `.path` is sourced.
 
+*TBD: add `.extra_local`*
 
 
 [mathiasbynens dotfiles repo]: https://github.com/mathiasbynens/dotfiles
