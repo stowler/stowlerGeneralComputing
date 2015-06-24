@@ -1,13 +1,34 @@
-setupBasicScriptingEnvironment.md
-===================================
+# Configure a Basic Scripting Environment
 
-All of my scripts and documentation assume that these resources have been installed. Below is a reasonable order for installation along with some of my install and config notes. 
+_Most of my scripts and documentation require that the following resources have been installed. Below is a reasonable order for installation along with some of my install and configuration notes._
+
+Contents
+=================
+
+  * [OS X only: Install XQuartz](#os-x-only-install-xquartz)
+  * [OS X only: Install Xcode](#os-x-only-install-xcode)
+  * [OS X only: Install MacVim](#os-x-only-install-macvim)
+  * [OS X only: Install iTerm2](#os-x-only-install-iterm2)
+  * [OS X only: Install MacPorts ](#os-x-only-install-macports-)
+  * [Install git](#install-git)
+  * [Install and sync VCSH and MR](#install-and-sync-vcsh-and-mr)
+  * [Confirm important dotfiles](#confirm-important-dotfiles)
+  * [Solarized-ize the terminal](#solarized-ize-the-terminal)
+  * [Install general command-line utilities](#install-general-command-line-utilities)
+  * [Install R and Rstudio](#install-r-and-rstudio)
 
 
 
-1 Install Xcode (OS X only)
+OS X only: Install XQuartz
+===============================
+
+Install the most recent version of [XQuartz](http://xquartz.macosforge.org/). After installation activate XQuartz by logging out and then logging back in.
+
+
+
+OS X only: Install Xcode
 ==============================
-It's useful to install Xcode first, as it is needed for other packages like git and macports. Here's how I do it in OS X 10.10 Yosemite:
+Xcode is needed to install later packages like git and macports. Here's how I install Xcode in in OS X 10.10 Yosemite:
 
 1. Install Xcode via Mac App Store.
 1. Open Xcode and allow additional components to install if prompted.
@@ -16,10 +37,10 @@ It's useful to install Xcode first, as it is needed for other packages like git 
 
 
 
-2 Install MacVim (OS X only)
+OS X only: Install MacVim
 ==============================================
 
-Install MacVim (and its command-line version mvim) immediately for something more reliable than built-in vim:
+Install MacVim (and its command-line version mvim) immediately for access to many more features than the vim shipped with OS X:
 
    - Download MacVim from http://code.google.com/p/macvim/
    - Uncompress and move `MacVim.app` to `/Applications/`
@@ -35,7 +56,7 @@ Install MacVim (and its command-line version mvim) immediately for something mor
    - Set aside OS X native `vi` and `vim`:
 
       ```bash
-      # Native vim in your path is probably /usr/bin/vim, and 
+      # Native vim in the existing path is probably /usr/bin/vim, and 
       # /usr/bin/vi is probably just a symlink to /usr/bin/vim:
       which vim
       which vi
@@ -45,7 +66,7 @@ Install MacVim (and its command-line version mvim) immediately for something mor
       sudo mv /usr/bin/vim /usr/bin/vim_from_apple
       ```
 
-   - Set these new symlinks for `vi` and `vim`. Calling them will open `mvim` in terminal mode:
+   - Create new symlinks for `vi` and `vim`. Calling them will open `mvim` in terminal mode:
  
       ```bash
       sudo ln -s /usr/local/bin/mvim /usr/local/bin/vi
@@ -58,7 +79,7 @@ Install MacVim (and its command-line version mvim) immediately for something mor
       # :h macvim can be used to get general information about MacVim
       ```
 
-   - I also like to set these symlinks for `view` (read-only mode) and `vimdiff` (side-by-side diff mode):
+   - I also like to create these symlinks for `view` (read-only mode) and `vimdiff` (side-by-side diff mode):
  
       ```bash
       sudo ln -s /usr/local/bin/mvim /usr/local/bin/view
@@ -71,7 +92,7 @@ Install MacVim (and its command-line version mvim) immediately for something mor
 
 
 
-3 Install iTerm2 (OS X only)
+OS X only: Install iTerm2
 =============================================
 I prefer [iTerm2][] to the OS X default terminal.
 
@@ -84,20 +105,17 @@ I prefer [iTerm2][] to the OS X default terminal.
 [iTerm2]: http://iterm2.com/
 
 
-4 Install MacPorts (OS X only)
+
+OS X only: Install MacPorts 
 ==============================================
 
 Though modern OS X has a number of useful \*nix tools pre-installed, sometimes they are missing or outdated. Macports provides an easy way to install these tools.
 
 Here's how I install Macports On OS X Mavericks:
 
-1. Confirm that the [macports prequisites](http://www.macports.org/install.php) are installed:
-	1. Install [Xquartz.](http://xquartz.macosforge.org/)
-	1. Logout and log back in to activate Xquartz.
-	1. Install Xcode via Mac App Store (see above).
-	1. Install Xcode's Command Line Developer Tools (see above).
+1. Confirm that the [macports prequisites](http://www.macports.org/install.php) are installed.
 2. [Download and install macports](http://www.macports.org/install.php) from the .pkg package installer specific for your version of OS X.
-3. Confirm the install worked: open a NEW terminal window, type `echo $PATH`. Notice that the install prepended `/opt/local` paths to the front of your previous `$PATH`.
+3. Confirm the install worked: open a NEW terminal window, type `echo $PATH`. Notice that the install prepended `/opt/local` paths to the front of the previous `$PATH`.
 4. Confirm that you can [update macports](http://guide.macports.org/#using.common-tasks) and [install a package](http://guide.macports.org/#using.port.install):
 	5. `sudo port -v selfupdate`
 	6. `sudo port upgrade outdated`
@@ -106,10 +124,10 @@ Here's how I install Macports On OS X Mavericks:
 
 
 
-5 Install git
+Install git
 ===============================
 
-Git is a system used to install and manage software repositories. It has both GUI and command-line interfaces, though I recommend you learn to use the more flexible command-line interface.
+[Git](https://git-scm.com) is a system used to install and manage software repositories. It has both GUI and command-line interfaces, though I recommend you learn to use the more flexible command-line interface. I also recommend that you use the same version of git on each of your platforms when possible, preferably by upgrading to a recent version. You can check the installed version of git with `git --version`. At the time of writing I'm using version 2.4.3.
 
 ## Remember to set git preferences!
 Regardless of OS, remember to set some basic git preferences after installation. For me that looks like:
@@ -118,21 +136,21 @@ Regardless of OS, remember to set some basic git preferences after installation.
 git config --global user.name "Stephen Towler"
 git config --global user.email "stowler@gmail.com"
 git config --global color.ui auto
-# ...you can list all of your environment's git settings with:
+# ...you can list all of the environment's git settings with:
 git config --list
 # ...and specific git settings with git config <key>, for example:
 git config user.email
 ```
 
-## Install git on OS X Yosemite:
+## Upgrade git on OS X Yosemite:
 
-OS X 10.10 Yosemite comes with git already available in your `$PATH` as
+OS X 10.10 Yosemite comes with git already available in the `$PATH` as
 `/usr/bin/git`. At the time of writing that's git version 2.3.2 (Apple Git-55).
 However, installing the macports version allows you to track a more current
 version of git. 
 
 ```bash
-# confirm that your macports folder appears earlier in your path than /usr/bin/ :
+# confirm that the macports folder appears earlier in the path than /usr/bin/ :
 echo $PATH
 
 # upate the local ports tree:
@@ -156,31 +174,65 @@ git config --global credential.helper osxkeychain
 
 If you don't want to install macports or use the OS X default git, there are other options:
 
-1) The GitHub GUI client for OS X also installs a command-line git client for OS X. [Just download the GitHub GUI client](http://mac.github.com/) and allow it to install the command-line client when it prompts you at the end. 
+1) The GitHub GUI client for OS X also installs a command-line git client for OS X. [Just download the GitHub GUI client](https://mac.github.com/) and allow it to install the command-line client when it prompts you at the end. 
 2) If you don't want to install the GUI client you could follow [these instrucitons](https://help.github.com/articles/set-up-git#platform-mac) instead.
 
 Regardless of which version of git you use, remember to set your user preferences after installation (see above).
 
-## Install git on debian/ubuntu linux:
+
+## Upgrade git on CentOS 6.6:
+
+CentOS versions 6.6 and earlier ship with git versions < 2, and benefit from upgrading. If the stock version of git is already installed, begin by removing it:
 
 ```bash
-sudo apt-get install git
+sudo yum remove git
+```
+
+Next install the prerequisites for compiling git:
+
+```bash
+sudo yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel gcc perl-ExtUtils-MakeMaker
+```
+
+Download, extract, and compile a more modern release of git source:
+
+```bash
+wget https://www.kernel.org/pub/software/scm/git/git-2.4.3.tar.gz
+tar -zxvf git-2.4.3.tar.gz 
+cd git-2.4.3
+make prefix=/usr/local/git all
+sudo make prefix=/usr/local/git install
+```
+
+Add this new git to your `$PATH`. I do this via `$HOME/.extra_local`, but in more conventional environments you'll probably want to add it to the end of `$HOME/.bash_profile`:
+
+```bash
+echo 'export PATH=/usr/local/git/bin:$PATH' >> $HOME/.bash_profile
 ```
 
 Remember to set your user preferences after installation (see above).
 	
 
 
-6 Install and sync VCSH and MR
+Install and sync VCSH and MR
 =============================================
-Follow [my instructions][] to install [VCSH][] and [MR][], and sync existing MR-managed repos to the new host. I use these packages to keep my dotfiles and git repositories synchronized among hosts.
+I use [VCSH][] and [MR][] to keep my dotfiles and git repositories synchronized among hosts. If you haven't already initialized a set of VCSH/MR repositories for yourself, you could follow [my instructions][] to do so on an existing host where you already have dotfiles and repositories worth tracking.
+
+After installing the VCSH and MR executables on a new host, I [synchronize][] all of my existing MR/VCSH-tracked repositories to that new host with two commands:
+
+
+```bash
+vcsh clone https://github.com/stowler/mr.git mr
+mr update
+```
 
 [VCSH]: https://github.com/RichiH/vcsh
 [MR]: http://myrepos.branchable.com
 [my instructions]: https://github.com/stowler/stowlerGeneralComputing/blob/master/docs/setupVCSH.md#2-clone-to-a-new-host-and-test-operations
+[synchronize]: https://github.com/stowler/stowlerGeneralComputing/blob/master/docs/setupVCSH.md#31-sync-your-vcshmr-repos-to-a-new-host
 
 
-7 Confirm important dotfiles
+Confirm important dotfiles
 ==================================
 
 I use individual VCSH repositories to sync and track my most important dotfiles:
@@ -189,6 +241,7 @@ I use individual VCSH repositories to sync and track my most important dotfiles:
 $ vcsh list
 mr
 vcsh-sdt-bash
+vcsh-sdt-iterm2
 vcsh-sdt-tmux
 vcsh-sdt-vim
 ```
@@ -251,12 +304,49 @@ This means that `.path` isn't particularly useful for things like `$FSLDIR/data/
 
 [mathiasbynens dotfiles repo]: https://github.com/mathiasbynens/dotfiles
 
-	
-8 Install general command-line utilities
+
+
+Solarized-ize the terminal
+==============================
+
+The [solarized color palette](http://ethanschoonover.com/solarized) produces legible color-coding of text in a number of environments. [I use it within vim](https://github.com/stowler/vcsh-sdt-vim/blob/master/.vimrc) for [syntax highlighting](http://ethanschoonover.com/solarized/img/screen-shell-dark.png), but it is also helpful to have it available in the terminal for [color-coded `ls` output](https://raw.githubusercontent.com/seebi/dircolors-solarized/master/img/dircolors.256dark.png). The steps for configuring the terminal to use the solarized palette vary depending on the specific terminal emulator and environment. Below are my notes on terminal environments where I use it.
+
+## OS X Yosemite: iTerm2
+
+In OS X I use [iTerm](http://iterm2.com) instead of the built-in terminal, and I have added Solarized Dark to my [iTerm2 config](https://github.com/stowler/vcsh-sdt-iterm2/tree/master/.iterm2). This iTerm2 palette is included in the [official solarized repository](https://github.com/altercation/solarized), and can be installed according to the instructions in its README file:
+
+```bash
+git clone git://github.com/altercation/solarized.git
+less solarized/iterm2-colors-solarized/README.md 
+```
+
+## CentOS 6.6: gnome-terminal and dircolors
+
+At the moment the official solarized repository doesn't contain a configuration for gnome terminal, but a third party is maintaining the [Gnome Terminal Colors Solarized repository](https://github.com/Anthony25/gnome-terminal-colors-solarized). Clone that repository and run its interactive install script:
+
+```bash
+git clone https://github.com/Anthony25/gnome-terminal-colors-solarized.git
+cd gnome-terminal-colors-solarized
+./install.sh
+```
+
+With that completed, you just need to give bash its color scheme for color-coded `ls` output. This can be done by installing the [Solarized Color Theme for GNU ls](https://github.com/seebi/dircolors-solarized):
+
+```bash
+git clone https://github.com/seebi/dircolors-solarized.git
+cd dircolors-solarized
+cp dircolors.256dark ${HOME}/.dircolors
+echo 'eval `dircolors ${HOME}/.dircolors`' >> ${HOME}/.bash_profile
+
+```
+
+
+
+Install general command-line utilities
 ============================================
 
 
-Install these utilities. If you don't know why now, you will. This will take negligable time on debian/ubuntu linux, but about 2.5 of macports compiling on a 2.8 GHz i5 iMac.
+Install these utilities. If you don't know why now, you will. This will take negligable time on debian/ubuntu linux, but about 2.5 hours of macports compiling on a 2.8 GHz i5 iMac.
 
 Each of these packages can be installed on debian/ubuntu linux by typing:
 
@@ -266,7 +356,7 @@ Each of these packages can be installed on debian/ubuntu linux by typing:
 
 	sudo port install [name(s) of the package(s)]
 
-Below is a list of the package names to substitute into the commands above (no square brackets when you actually type/paste these package names into your install command above:)
+Below is a list of the package names to substitute into the commands above (no square brackets when you actually type/paste these package names into the install command above:)
 
 	curl wget tmux tree htop slurm imagemagick
 	
@@ -282,7 +372,7 @@ And for OS X only you will also want these:
 
 
 
-9 Install R and Rstudio
+Install R and Rstudio
 ============================
 
 R is the way and the light. It is a complete statistics analysis language supported by a universe of active statisticians and developers. Rstudio is a graphical integrated development environment for the R lanuage.
@@ -294,7 +384,7 @@ R is the way and the light. It is a complete statistics analysis language suppor
 3. [Download Rstudio Desktop](http://www.rstudio.com/ide/download/desktop) as a precompiled binary.
 4. Install Rstudio Desktop from downloaded .dmg file.
 
-To upgrade R or Rstudio Desktop just follow the same instructions. They are both generally good about finding your existing install and either migrating everything over to the new version or warning you if there is going to be trouble.
+To upgrade R or Rstudio Desktop just follow the same instructions. They are both generally good about finding existing versions and either migrating everything over to the new version or warning you if there is going to be trouble.
  
 
 ## Install R and Rstudio on ubuntu linux:
