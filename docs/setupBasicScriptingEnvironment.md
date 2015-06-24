@@ -344,7 +344,7 @@ Install general command-line utilities
 ============================================
 
 
-Install these utilities. If you don't know why now, you will. This will take negligable time on debian/ubuntu linux, but about 2.5 hours of macports compiling on a 2.8 GHz i5 iMac.
+Install these utilities. If you don't know why now, you will. This will take negligible time on debian/ubuntu linux, but about 2.5 hours of macports compiling on a 2.8 GHz i5 iMac.
 
 Each of these packages can be installed on debian/ubuntu linux by typing:
 
@@ -373,7 +373,7 @@ And for OS X only you will also want these:
 Install R and Rstudio
 ============================
 
-R is the way and the light. It is a complete statistics analysis language supported by a universe of active statisticians and developers. Rstudio is a graphical integrated development environment for the R lanuage.
+R is the way and the light. It is a complete statistics analysis language supported by a universe of active statisticians and developers. Rstudio is a graphical integrated development environment for the R language.
 
 ## Install R and Rstudio on OS X Mavericks:
 
