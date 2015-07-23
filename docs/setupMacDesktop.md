@@ -117,7 +117,8 @@ Install Apps from non-MAS packages
 istat?
 
 - [Emory's F5 BIG-IP VPN client](http://it.emory.edu/vpntools/)
-- [Matlab](http://www.mathworks.com/) (2 GB download, 5.5 GB install)
+- [Matlab](http://www.mathworks.com/) (2 GB download, 5.5 GB install). Check installed toolboxes with `ver;` and make sure these are installed:
+   - bioinformatics toolbox
    - database toolbox
    - image processing toolbox
    - matlab coder
