@@ -127,19 +127,21 @@ Here's how I install Macports On OS X Mavericks:
 Install or upgrade git
 ===============================
 
-[Git](https://git-scm.com) is a system used to install and manage software repositories. It has both GUI and command-line interfaces, though I recommend you learn to use the more flexible command-line interface. I also recommend that you use the same version of git on each of your platforms when possible, preferably by upgrading to a recent version. You can check the installed version of git with `git --version`. At the time of writing I'm using version 2.4.3.
+[Git](https://git-scm.com) is a system used to install and manage software repositories. It has both GUI and command-line interfaces, though I recommend you learn to use the more flexible command-line interface. I also recommend that you use the same version of git on each of your platforms when possible, preferably by upgrading to a recent version. You can check the installed version of git with `git --version`. 
+
+NB: At the time of writing I'm using version 2.4.3, and have found that versions in the 1.x series are incompatible with some current utilities, including [VCSH and MR](https://github.com/stowler/stowlerGeneralComputing/blob/master/docs/setupVCSH.md).
 
 ## Remember to set git preferences!
-Regardless of OS, remember to set some basic git preferences after installation. For me that looks like:
+Regardless of OS, remember to set some basic git preferences after installation. I like to do this in `~/.extra`, which I source from `.bash_profile`:
 
 ```bash
 git config --global user.name "Stephen Towler"
 git config --global user.email "stowler@gmail.com"
 git config --global color.ui auto
 # ...you can list all of the environment's git settings with:
-git config --list
+#        git config --list
 # ...and specific git settings with git config <key>, for example:
-git config user.email
+#        git config user.email
 ```
 
 ## Upgrade git on OS X Yosemite:
@@ -176,6 +178,21 @@ If you don't want to install macports or use the OS X default git, there are oth
 
 Regardless of which version of git you use, remember to set your user preferences after installation (see above).
 
+## Upgrade git on Ubuntu 12.04 LTS
+
+Ubuntu 12.04 and earlier ship with git versions < 2, and benefit from upgrading. If the stock version of git is already installed, begin by removing it:
+
+```bash
+sudo apt-get remove git
+```
+
+Now add the [official git PPA](https://launchpad.net/~git-core/+archive/ubuntu/ppa) to your apt sources and install git:
+
+```bash
+sudo apt-add-repository ppa:git-core/ppa
+sudo apt-get update
+sudo apt-get install git
+```
 
 ## Upgrade git on CentOS 6.6:
 
@@ -215,7 +232,7 @@ Install and sync VCSH and MR
 =============================================
 I use [VCSH][] and [MR][] to keep my dotfiles and git repositories synchronized among hosts. If you haven't already initialized a set of VCSH/MR repositories for yourself, you could follow [my instructions][] to do so on an existing host where you already have dotfiles and repositories worth tracking.
 
-After installing the VCSH and MR executables on a new host, I [synchronize][] all of my existing MR/VCSH-tracked repositories to that new host with two commands:
+After [installing][] the VCSH and MR executables on a new host, I [synchronize][] all of my existing MR/VCSH-tracked repositories to that new host with two commands:
 
 
 ```bash
@@ -226,6 +243,7 @@ mr update
 [VCSH]: https://github.com/RichiH/vcsh
 [MR]: http://myrepos.branchable.com
 [my instructions]: https://github.com/stowler/stowlerGeneralComputing/blob/master/docs/setupVCSH.md#2-clone-to-a-new-host-and-test-operations
+[installing]: https://github.com/stowler/stowlerGeneralComputing/blob/master/docs/setupVCSH.md#1-install-vcsh-and-mr
 [synchronize]: https://github.com/stowler/stowlerGeneralComputing/blob/master/docs/setupVCSH.md#31-sync-your-vcshmr-repos-to-a-new-host
 
 

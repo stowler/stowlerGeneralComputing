@@ -133,7 +133,8 @@ git push -u origin master
 3.1. Sync your VCSH/MR repos to a new host
 -----------------------------------------
 1. Install VCSH and MR per section 1.1 above.
-2. VCSH clone your MR configs via `vcsh clone https://github.com/stowler/mr.git mr` , which creates:
+2. If your VCSH repos include environment preference files such as `.bashrc`, `.bash_profile`, or `.profile`, you might want to rename the host's existing versions by appending `_orig` before the next step. Otherwise you may experience conflicts and infinite loops.
+3. VCSH clone your MR configs via `vcsh clone https://github.com/stowler/mr.git mr` , which creates:
    ```bash
    ~/.config/
    ~/.config/git/ignore # TBD: not really, as of 20141028. Fix this.
@@ -148,9 +149,9 @@ git push -u origin master
    ~/.mrconfig
    ```
 
-3. Update all mr-registered repos: `mr update`
+4. Update all mr-registered repos: `mr update`
 
-4. `ls -al ~/.config/mr/*.d/` to confirm that any vcsh repos that should be active for this host are linked from `~/.config/mr/available.d/*.vcsh` to `~/.config/mr/config.d/`
+5. `ls -al ~/.config/mr/*.d/` to confirm that any vcsh repos that should be active for this host are linked from `~/.config/mr/available.d/*.vcsh` to `~/.config/mr/config.d/`
 
 
 
