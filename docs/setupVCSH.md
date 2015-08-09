@@ -1,15 +1,22 @@
-These are my provisional notes on how to get started using VCSH and MR to manage your dotfiles.
+# Use VCSH and MR to Synchronize Dotfiles and Git Repos Among Hosts
 
+_These are my provisional notes on how to get started using VCSH and MR to manage your dotfiles and git repos._
 
-I followed a combination of the [vcsh author documentation][] and [this Nov 2013 Linux Journal article.][] My initial host was a debian wheezy 7.4.0 VM (no backports).
+_I followed the [vcsh author documentation][] and [this Nov 2013 Linux Journal article.][] My initial bootstrap host was a debian wheezy 7.4.0 VM (no backports)._
 
 [vcsh author documentation]: https://github.com/RichiH/vcsh/tree/master/doc
 [this Nov 2013 Linux Journal article.]: http://www.linuxjournal.com/content/manage-your-configs-vcsh
 
+Table of Contents
+=================
 
+[1. Install vcsh and mr](#1-install-vcsh-and-mr)
+[2. One-time bootstrap of vcsh and mr template](#2-one-time-bootstrap-of-vcsh-and-mr-template)
+[3. Sync to a new host](#3-sync-to-a-new-host)
+[4. Add an existing (non-vcsh) repo to .mrconfig](#4-add-an-existing-non-vcsh-repo-to-mrconfig)
+[5. Add a new vcsh repo](#5-add-a-new-vcsh-repo)
 
-1. Install vcsh and mr
-=========================================================
+# 1. Install vcsh and mr
 
 If git isn't already installed on your computer, [download and install](https://github.com/stowler/stowlerGeneralComputing/blob/master/docs/setupBasicScriptingEnvironment.md#git) git before following the rest of these instructions.
 
@@ -43,13 +50,11 @@ sudo make install
 
 
 
-2. ONE TIME ONLY: Create and push your first vcsh repo and mr template
-=======================================================================
+# 2. One-time bootstrap of vcsh and mr template
 
 You only have to do this once. Not once per host or once per repo...just once.  This establishes a relationship between your vcsh and mr configs.
 
-2.1. Create your first vcsh repo (vim preferences)
----------------------------------------------------------
+## 2.1. Create your first vcsh repo (vim preferences)
 
 After you confirm that your `~/.vimrc` and `~/.vim/` exist, initialize a vcsh repo for vim configuration:
 ```bash
@@ -74,8 +79,7 @@ vcsh vim push -u origin master
 
 
 
-2.2. Customize and push the vcsh mr template
---------------------------------------------------
+## 2.2. Customize and push the vcsh mr template
 
 Clone the vcsh mr template:
 ```bash
@@ -126,12 +130,8 @@ git push -u origin master
 
 
 
-3. Clone to a new host and test operations
-=============================================
+# 3. Sync to a new host
 
-
-3.1. Sync your VCSH/MR repos to a new host
------------------------------------------
 1. Install VCSH and MR per section 1.1 above.
 2. If your VCSH repos include environment preference files such as `.bashrc`, `.bash_profile`, or `.profile`, you might want to rename the host's existing versions by appending `_orig` before the next step. Otherwise you may experience conflicts and infinite loops.
 3. VCSH clone your MR configs via `vcsh clone https://github.com/stowler/mr.git mr` , which creates:
@@ -155,7 +155,7 @@ git push -u origin master
 
 
 
-3.2. Test: does editing an existing file work?
+3.1. Test: does editing an existing file work?
 --------------------------------------------
 1. Manually confirm that the second host received the most up-to-date .vimrc
 1. Make some trivial edit to second host's .vimrc
@@ -166,28 +166,28 @@ git push -u origin master
 
 
 
-3.3. Test: does adding a new file work?
+3.2. Test: does adding a new file work?
 ------------------------------
 TBD
 
 
-3.4. Test: does removing a file work?
+3.3. Test: does removing a file work?
 -----------------------------
 TBD
 
 
-3.5. Test: does renaming a file work?
+3.4. Test: does renaming a file work?
 -----------------------------
 TBD
 
 
-3.6. Test: does moving a file work?
+3.5. Test: does moving a file work?
 -----------------------------
 TBD
 
 
-4. Add an existing (non-vcsh) repo to .mrconfig
-====================================================
+# 4. Add an existing (non-vcsh) repo to .mrconfig
+
 MR can also sync non-vcsh repos so that you have the same repos available on all of your hosts.
 
 1. Clone an existing non-vcsh repo to somewhere reasonable (e.g., `$HOME/src.upstream.gitRepos` or `$HOME/src.mywork.gitRepos`):
@@ -214,13 +214,10 @@ MR can also sync non-vcsh repos so that you have the same repos available on all
    ```
 
 
-5. Add and test new vcsh repo
-============================
+# 5. Add a new vcsh repo
 
 On second host, confirm that mr is current (`mr update`), and if so add .tmux as a second repo.
 
-5.1. Add new vcsh repo
-------------------------
 
 1. Name the vcsh repo:        `repoName=vcsh-sdt-tmux`
 1. Create config file:        `cp ${HOME}/.config/mr/available.d/vcsh-sdt-vim.vcsh ${HOME}/.config/mr/available.d/$repoName.vcsh`
@@ -260,7 +257,7 @@ On second host, confirm that mr is current (`mr update`), and if so add .tmux as
 
 
 
-5.2. Test: does other host receive the new repo?
+5.1. Test: does other host receive the new repo?
 --------------------------------------------
 
 TBD
