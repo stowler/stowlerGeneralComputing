@@ -9,21 +9,19 @@ Contents
   * [OS X only: Install Xcode](#os-x-only-install-xcode)
   * [OS X only: Install MacVim](#os-x-only-install-macvim)
   * [OS X only: Install iTerm2](#os-x-only-install-iterm2)
-  * [OS X only: Install MacPorts ](#os-x-only-install-macports-)
-  * [Install git](#install-or-upgrade-git)
+  * [OS X only: Install MacPorts](#os-x-only-install-macports-)
+  * [Install or upgrade git](#install-or-upgrade-git)
   * [Install and sync VCSH and MR](#install-and-sync-vcsh-and-mr)
   * [Confirm important dotfiles](#confirm-important-dotfiles)
   * [Solarized-ize the terminal](#solarized-ize-the-terminal)
   * [Install general command-line utilities](#install-general-command-line-utilities)
-  * [Install R and Rstudio](#install-r-and-rstudio)
-
-
+  * [Install R](#install-r-)
+  * [Install Matlab](#install-matlab)
 
 OS X only: Install XQuartz
 ===============================
 
 Install the most recent version of [XQuartz](http://xquartz.macosforge.org/). After installation activate XQuartz by logging out and then logging back in.
-
 
 
 OS X only: Install Xcode
@@ -34,7 +32,8 @@ Xcode is needed to install later packages like git and macports. Here's how I in
 1. Open Xcode and allow additional components to install if prompted.
 1. From the terminal run `sudo xcodebuild -license`.
 1. From the terminal run `sudo xcode-select --install` to install Apple's [Developer Command Line Tools.](https://developer.apple.com/downloads/index.action)
-
+1. Add FileMerge to the dock:
+`dockutil --add '/Applications/Xcode.app/Contents/Applications/FileMerge.app'`
 
 
 OS X only: Install MacVim
@@ -44,6 +43,8 @@ Install MacVim (and its command-line version `mvim`) for access to many more fea
 
    - Download MacVim from http://code.google.com/p/macvim/
    - Uncompress and move `MacVim.app` to `/Applications/`
+   - Add to Dock drag-and-drop:
+   `dockutil --add '/Applications/MacVim.app'`
    - Install `mvim` from the download:
    
       ```bash
@@ -388,7 +389,7 @@ And for OS X only you will also want these:
 
 
 
-Install R and Rstudio
+Install R 
 ============================
 
 R is the way and the light. It is a complete statistics analysis language supported by a universe of active statisticians and developers. Rstudio is a graphical integrated development environment for the R language.
@@ -474,3 +475,18 @@ Test R, including its 3D and GUI toolkits. None of these shold produce errors:
     data(mtcars, package="datasets")
     scatter3dHH(mtcars$disp, mtcars$mpg, mtcars$hp, fit="linear", bg="white", grid=TRUE, squares=FALSE, xlab="disp", ylab="mpg", zlab="hp")
     identify3d(mtcars$disp, mtcars$mpg, mtcars$hp, labels=row.names(mtcars))
+
+# Install Matlab
+
+Usually I direct download direct from [Matlab](http://www.mathworks.com/). At installation I select these toolboxes to support neuroimaging apps (2 GB download, 5.5 GB install) :
+
+- bioinformatics toolbox
+- database toolbox
+- image processing toolbox
+- matlab coder
+- matlab compiler
+- matlab compiler SDK
+- signal processing toolbox
+- statistic and machine learning toolbox
+
+Once Matlab is installed, the command `ver` entered at the Matlab prompt will output a list of installed toolboxes.
