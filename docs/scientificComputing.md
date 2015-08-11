@@ -49,7 +49,20 @@ Bash scripting will allow you to take what you learned about using the command l
 
 # Getting started with git
 
-TBD
+Git is an important software package for version control: it allows the tracking of changes that have been made to code, and facilitates merging, branching, and other manipulations of code versions. Github.com provides free code hosting services to support the sharing and management of git-tracked code. Most users will first encounter git and github.com when downloadig existing code that another author has shared via github.com, but it doesn't take much time to learn to track and share your own code.
+
+**51 min:**
+
+Github's [July 2013 webcast][] provides a reasonable introduction to the ideas of version control and the mechanics of using git and github. I recommend starting at the 9:10 mark.
+
+Users who would like to dig deeper could then browse the Github [Bootcamp][] webpage, which has a written step-by-step guide to  getting started with git and github. It also links to a page with a list of [other resources][] for learning git.
+
+[Bootcamp]: https://help.github.com/categories/bootcamp/
+[other resources]: https://help.github.com/articles/good-resources-for-learning-git-and-github
+[July 2013 webcast]: https://www.youtube.com/watch?v=U8GBXvdmHT4
+
+(TBD: screen lynda.com git resources)
+
 
 # Getting started with Amazon Web Services
 
@@ -62,4 +75,4 @@ TBD
 # Getting started with Matlab
 
 TBD
-
+t
