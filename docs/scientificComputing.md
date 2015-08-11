@@ -74,5 +74,9 @@ TBD
 
 # Getting started with Matlab
 
-TBD
-t
+**90 min:**
+
+Matlab is a commercial programming language and point-and-click development environment that users can use to write their own neuroimaging analysis code, as well as run community-provided packages like [SPM][] and [GIFT][]. At minimum users will want to be able to read, interpret, and install other authors' code. Search Lynda.com for the course titled "Up and Running with MATLAB".
+
+[SPM]: http://www.fil.ion.ucl.ac.uk/spm/
+[GIFT]: http://mialab.mrn.org/software/
