@@ -82,7 +82,32 @@ Finally, the free ebook ["Pro Git"][] is a particularly good resource for learni
 [SPM]: http://www.fil.ion.ucl.ac.uk/spm/
 [GIFT]: http://mialab.mrn.org/software/
 
+<!--
+TBD: other matlab candidates:
 
+From mathworks:
+http://blogs.mathworks.com/videos/
+https://www.mathworks.com/products/matlab/webinars.html?s_iid=ovp_wbnrs_4221048365001-101161_rr
+https://www.mathworks.com/products/matlab/videos.html?s_iid=ovp_vids_4221048365001-101161_rr
+
+MIT:
+https://www.youtube.com/playlist?list=PLUl4u3cNGP62bMZx9A3DR7V5myByt48CC
+http://ocw.mit.edu/courses/mathematics/18-s997-introduction-to-matlab-programming-fall-2011/
+
+coursera:
+https://www.coursera.org/course/matlab
+https://www.coursera.org/course/scientificcomp
+
+learnrope:
+http://learnrope.com/courses/matlab-for-beginners/
+
+https://www.youtube.com/playlist?list=PL60D54836FB8893F0
+
+Linear algebra:
+http://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/
+https://www.youtube.com/playlist?list=PL01A21B9E302D50C1
+http://www.quora.com/Which-is-a-better-resource-to-learn-linear-algebra-Gilbert-Strangs-lectures-or-the-lectures-from-Khan-Academy
+-->
 
 # Getting started with R (?? hours)
 
