@@ -73,6 +73,13 @@ Finally, the free ebook ["Pro Git"][] is a particularly good resource for learni
 [July 2013 webcast]: https://www.youtube.com/watch?v=U8GBXvdmHT4
 ["Pro Git"]: https://git-scm.com/book
 
+<!--
+I also like the branching content in this video but it isn't very "professional" feeling:
+https://www.youtube.com/watch?v=to6tIdy5rNc
+...TBD: maybe include it later?
+-->
+
+
 # Getting started with MATLAB (1.5 hours)
 
 **90 min:**
