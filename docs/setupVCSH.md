@@ -165,7 +165,7 @@ git push -u origin master
 1. On original (first) host run `mr update`. Manually confirm that the host received the edits.
 
 
-
+<!--
 3.2. Test: does adding a new file work?
 ------------------------------
 TBD
@@ -184,7 +184,7 @@ TBD
 3.5. Test: does moving a file work?
 -----------------------------
 TBD
-
+-->
 
 # 4. Add an existing (non-vcsh) repo to .mrconfig
 
@@ -256,8 +256,10 @@ On second host, confirm that mr is current (`mr update`), and if so add .tmux as
    ```
 
 
-
+<!--
 5.1. Test: does other host receive the new repo?
 --------------------------------------------
 
 TBD
+
+-->

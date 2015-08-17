@@ -192,15 +192,16 @@ _These apps contain personal information or credentials, so I only install them 
 
 
 - [Emory's F5 BIG-IP VPN client](http://it.emory.edu/vpntools/)
+- [X2Go Client](http://wiki.x2go.org/doku.php/doc:installation:x2goclient#os_x) ([release](http://code.x2go.org/releases/binary-macosx/x2goclient/), not preview)
+- [Marked 2](http://marked2app.com/)
+- [github-markdown-toc.go](https://github.com/ekalinin/github-markdown-toc.go#precompiled-binaries) (add to precompiled binary to /usr/local/bin)
 - [Chrome Beta](https://www.google.com/chrome/browser/beta.html)
 - [VMware Fusion Pro](http://www.vmware.com/products/fusion/fusion-evaluation.html)
 - [Skitch](https://evernote.com/skitch/)
-- [Skype](http://www.skype.com/en/download-skype/skype-for-computer/)
-- [Marked 2](http://marked2app.com/)
-- [github-markdown-toc.go](https://github.com/ekalinin/github-markdown-toc.go#precompiled-binaries) (add to precompiled binary to /usr/local/bin)
 - [Go2Shell](http://zipzapmac.com/Go2Shell)
 - [iStat Menus](https://bjango.com/mac/istatmenus/)
 - [Papers 2.7.3](http://www.papersapp.com/mac/)
+- [Skype](http://www.skype.com/en/download-skype/skype-for-computer/)
 
 
 # Install development environment
