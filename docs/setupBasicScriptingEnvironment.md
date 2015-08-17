@@ -179,9 +179,10 @@ If you don't want to install macports or use the OS X default git, there are oth
 
 Regardless of which version of git you use, remember to set your user preferences after installation (see above).
 
-## Upgrade git on Ubuntu 12.04 LTS
+## Upgrade git on Ubuntu 14.04 LTS
+**UPDATED: 20150817**
 
-Ubuntu 12.04 and earlier ship with git versions < 2, and benefit from upgrading. If the stock version of git is already installed, begin by removing it:
+Ubuntu 14.04 and earlier ship with git versions < 2, and benefit from upgrading. If the stock version of git is already installed, begin by removing it:
 
 ```bash
 sudo apt-get remove git
@@ -405,16 +406,68 @@ To upgrade R or Rstudio Desktop just follow the same instructions. They are both
  
 
 ## Install R and Rstudio on ubuntu linux:
+**UPDATED: 20150817**
 
-See http://cran.r-project.org/bin/linux/ubuntu/README.html
+If R has already been installed from the default apt sources it is probably out-of-date or will be soon, and should be replaced by packages from the R CRAN repos. 
 
-	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
-	# add to /etc/apt/sources.list:
-	# deb http://cran.stat.ucla.edu/bin/linux/ubuntu precise/
-	sudo apt-get update
-	sudo apt-get install r-base r-base-dev
-	
-Then download the rstudio [.deb installation file from the rstudio website](http://www.rstudio.com/ide/download/desktop). Install by double-clicking on it, and after installation it should appear in Applications -> Development -> Rstudio .
+Start by removing the existing R packages. One way to do this is remove `r-base` and `r-base-core` via `aptitude`, and allow their dependencies to be removed with them. (TBD: alternative via apt-get/dpkg).
+
+
+With that fresh start, follow the R Ubuntu [README](http://cran.r-project.org/bin/linux/ubuntu/README.html) to add the official R ubuntu apt source and `r-base` and `r-base-dev`:
+
+```bash
+# add the secure apt key to your system:
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
+# add this line to /etc/apt/sources.list for 14.04 Trusty, or modify for your ubuntu release per the README
+# deb http://cran.stat.ucla.edu/bin/linux/ubuntu trusty/
+sudo apt-get update
+sudo apt-get install r-base r-base-dev
+```
+
+Update the installed packages from within R:
+
+```
+sudo R --no-save
+update.packages(ask=FALSE)
+q()
+```
+
+Because 3D operations and GUI toolkits can be touchy, it is sometimes helpful to install and test `rgl` and `Rcmdr` before adding any other R packages. Start by installing dependencies from apt sources:
+
+```bash
+ # rgl dependencies from apt sources:
+ sudo apt-get install xserver-xorg-dev libx11-dev libglu1-mesa-dev mesa-utils glew-utils
+ # Rcmdr dependencies from apt sources:
+ # (you could apt-get install r-cran-rjava, but may be better to just install
+ # its deps instead:)
+ sudo apt-get install default-jre default-jdk unixodbc-dev
+ sudo R CMD javareconf
+ # RcmdrPlugin.HH dependencies from apt sources:
+ sudo apt-get install libgmp-dev libmpfr-dev
+
+```
+<!-- 
+What about dependencies from previous documentation:
+tk-dev ? tk8.5-dev ? tclreadline ? libopenmpi-dev ? libxml2-dev ?
+-->
+
+Finally, compile and install these sentinal packages from within R: `rgl`, `car`, `Rcmdr`, and `RcmdrPlugin.HH`. I use these packages in my work, but have also found that they are good at surfacing R installation problems:
+
+```bash
+sudo R --no-save
+install.packages('rgl', dependencies=TRUE)
+install.packages('car', dependencies=TRUE)
+install.packages('XLConnect', dependencies=TRUE)
+install.packages('Rcmdr', dependencies=TRUE)
+install.packages('RcmdrPlugin.HH', dependencies=TRUE)
+q()
+```
+
+With installation complete, [test R 3D and GUI toolkits][].
+
+
+To install Rstudio, just download the rstudio [.deb installation file from the rstudio website](http://www.rstudio.com/ide/download/desktop). Install by double-clicking on it, and after installation it should appear in Applications -> Development -> Rstudio . (TBD: CLI version)
+
 
 
 
@@ -459,6 +512,8 @@ Because 3D operations and GUI toolkits can be touchy, it is sometimes helpful to
     
 Reboot the Neurodebian VM to settle any graphics dependencies that were installed with those packages.
 
+## Test R 3D and GUI toolkits
+
 Test R, including its 3D and GUI toolkits. None of these shold produce errors:
 
     sudo R --no-save
@@ -475,6 +530,9 @@ Test R, including its 3D and GUI toolkits. None of these shold produce errors:
     data(mtcars, package="datasets")
     scatter3dHH(mtcars$disp, mtcars$mpg, mtcars$hp, fit="linear", bg="white", grid=TRUE, squares=FALSE, xlab="disp", ylab="mpg", zlab="hp")
     identify3d(mtcars$disp, mtcars$mpg, mtcars$hp, labels=row.names(mtcars))
+
+
+[test R 3D and GUI toolkits]: #test-r-3d-and-gui-toolkits
 
 # Install Matlab
 
