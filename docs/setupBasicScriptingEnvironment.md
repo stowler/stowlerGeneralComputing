@@ -179,7 +179,7 @@ If you don't want to install macports or use the OS X default git, there are oth
 
 Regardless of which version of git you use, remember to set your user preferences after installation (see above).
 
-## Upgrade git on Ubuntu 14.04 LTS
+## Upgrade git on Ubuntu
 **UPDATED: 20150817**
 
 Ubuntu 14.04 and earlier ship with git versions < 2, and benefit from upgrading. If the stock version of git is already installed, begin by removing it:
