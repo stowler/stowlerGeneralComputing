@@ -230,8 +230,9 @@ Remember to set your user preferences after installation (see above).
 	
 
 
-Install and sync VCSH and MR
-=============================================
+# Install and sync VCSH and MR
+**UPDATED: 20150818**
+
 I use [VCSH][] and [MR][] to keep my dotfiles and git repositories synchronized among hosts. If you haven't already initialized a set of VCSH/MR repositories for yourself, you could follow [my instructions][] to do so on an existing host where you already have dotfiles and repositories worth tracking.
 
 After [installing][] the VCSH and MR executables on a new host, I [synchronize][] all of my existing MR/VCSH-tracked repositories to that new host with two commands:
@@ -246,11 +247,10 @@ mr update
 [MR]: http://myrepos.branchable.com
 [my instructions]: https://github.com/stowler/stowlerGeneralComputing/blob/master/docs/setupVCSH.md#2-clone-to-a-new-host-and-test-operations
 [installing]: https://github.com/stowler/stowlerGeneralComputing/blob/master/docs/setupVCSH.md#1-install-vcsh-and-mr
-[synchronize]: https://github.com/stowler/stowlerGeneralComputing/blob/master/docs/setupVCSH.md#31-sync-your-vcshmr-repos-to-a-new-host
+[synchronize]: https://github.com/stowler/stowlerGeneralComputing/blob/master/docs/setupVCSH.md#3-sync-to-a-new-host
 
 
-Confirm important dotfiles
-==================================
+# Confirm important dotfiles
 
 I use individual VCSH repositories to sync and track my most important dotfiles:
 
@@ -406,44 +406,71 @@ To upgrade R or Rstudio Desktop just follow the same instructions. They are both
  
 
 ## Install R and Rstudio on ubuntu linux:
-**UPDATED: 20150817**
+**UPDATED: 20150818**
 
 If R has already been installed from the default apt sources it is probably out-of-date or will be soon, and should be replaced by packages from the R CRAN repos. 
 
-Start by removing the existing R packages. One way to do this is remove `r-base` and `r-base-core` via `aptitude`, and allow their dependencies to be removed with them. (TBD: alternative via apt-get/dpkg).
+First confirm the location of currently installed R libraries:
+
+```
+$ sudo R --no-save
+> .libPaths()
+[1] "/usr/local/lib/R/site-library" "/usr/lib/R/site-library"
+[3] "/usr/lib/R/library"
+```
+
+Next uninstall the existing R packages that are registered with apt:
+
+```bash
+$ sudo apt-get autoremove r-base r-base-core r-base-dev r-doc-html
+# ...after which you may want to run aptitude to detect and resolve any conflicts created by that command
+```
+
+Then uninstall the existing R packages that weren't registered with apt:
+
+```bash
+# (this command will vary depending on the output of .libPaths() above)
+$ sudo rm -fr /usr/local/lib/R/site-library /usr/lib/R/site-library /usr/lib/R/library
+
+```
 
 
 With that fresh start, follow the R Ubuntu [README](http://cran.r-project.org/bin/linux/ubuntu/README.html) to add the official R ubuntu apt source and `r-base` and `r-base-dev`:
 
 ```bash
 # add the secure apt key to your system:
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
+$ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
+
 # add this line to /etc/apt/sources.list for 14.04 Trusty, or modify for your ubuntu release per the README
 # deb http://cran.stat.ucla.edu/bin/linux/ubuntu trusty/
-sudo apt-get update
-sudo apt-get install r-base r-base-dev
+$ sudo apt-get update
+
+# install the base R packages:
+$ sudo apt-get install r-base r-base-dev
 ```
 
 Update the installed packages from within R:
 
 ```
-sudo R --no-save
-update.packages(ask=FALSE)
-q()
+$ sudo R --no-save
+> update.packages(ask=FALSE)
+> q()
 ```
 
-Because 3D operations and GUI toolkits can be touchy, it is sometimes helpful to install and test `rgl` and `Rcmdr` before adding any other R packages. Start by installing dependencies from apt sources:
+Because 3D operations and GUI toolkits can be touchy, it is helpful to install and test `rgl` and `Rcmdr` before adding any other R packages. Start by installing dependencies from apt sources:
 
 ```bash
  # rgl dependencies from apt sources:
- sudo apt-get install xserver-xorg-dev libx11-dev libglu1-mesa-dev mesa-utils glew-utils
+ $ sudo apt-get install xserver-xorg-dev libx11-dev libglu1-mesa-dev mesa-utils glew-utils
+
  # Rcmdr dependencies from apt sources:
  # (you could apt-get install r-cran-rjava, but may be better to just install
  # its deps instead:)
- sudo apt-get install default-jre default-jdk unixodbc-dev
- sudo R CMD javareconf
+ $ sudo apt-get install default-jre default-jdk unixodbc-dev
+ $ sudo R CMD javareconf
+
  # RcmdrPlugin.HH dependencies from apt sources:
- sudo apt-get install libgmp-dev libmpfr-dev
+ $ sudo apt-get install libgmp-dev libmpfr-dev
 
 ```
 <!-- 
@@ -454,13 +481,13 @@ tk-dev ? tk8.5-dev ? tclreadline ? libopenmpi-dev ? libxml2-dev ?
 Finally, compile and install these sentinal packages from within R: `rgl`, `car`, `Rcmdr`, and `RcmdrPlugin.HH`. I use these packages in my work, but have also found that they are good at surfacing R installation problems:
 
 ```bash
-sudo R --no-save
-install.packages('rgl', dependencies=TRUE)
-install.packages('car', dependencies=TRUE)
-install.packages('XLConnect', dependencies=TRUE)
-install.packages('Rcmdr', dependencies=TRUE)
-install.packages('RcmdrPlugin.HH', dependencies=TRUE)
-q()
+$ sudo R --no-save
+> install.packages('rgl',            dependencies=TRUE, repos='http://cran.stat.ucla.edu')
+> install.packages('car',            dependencies=TRUE, repos='http://cran.stat.ucla.edu')
+> install.packages('XLConnect',      dependencies=TRUE, repos='http://cran.stat.ucla.edu')
+> install.packages('Rcmdr',          dependencies=TRUE, repos='http://cran.stat.ucla.edu')
+> install.packages('RcmdrPlugin.HH', dependencies=TRUE, repos='http://cran.stat.ucla.edu')
+> q()
 ```
 
 With installation complete, [test R 3D and GUI toolkits][].
@@ -472,6 +499,8 @@ To install Rstudio, just download the rstudio [.deb installation file from the r
 
 
 ## Install R and Rstudio on Neurodebian 7.2.0 wheezy virtual machine:
+**UPDATED: 20150818**
+**TBD: re-write to match or incorporate Ubuntu section**
 
 For a neurodebian wheezy virtual machine (VM) installed and updated using 
 [these instructions](http://j.mp/setupNeurodebianVM), a working installation of R can be added with the following steps. These instructions are based on the 
@@ -481,56 +510,41 @@ a minimum of pre-compiled 3.x binaries, followed by compiling current packages f
 
 First get the key for the R 3.x backports:
 
-    sudo gpg --keyserver pgp.mit.edu --recv-key 381BA480
-    sudo gpg -a --export 381BA480 > /tmp/jranke_cran.asc
-    sudo apt-key add /tmp/jranke_cran.asc
+```bash
+$ sudo gpg --keyserver pgp.mit.edu --recv-key 381BA480
+$ sudo gpg -a --export 381BA480 > /tmp/jranke_cran.asc
+$ sudo apt-key add /tmp/jranke_cran.asc
+```
 
 ...and add these lines to `/etc/apt/sources.list` :
 
     deb http://cran.stat.ucla.edu/bin/linux/debian wheezy-cran3/
     deb-src http://cran.stat.ucla.edu/bin/linux/debian wheezy-cran3/
 
-...and install the R base and dependencies from the backports repository:
-
-    sudo apt-get update
-    sudo apt-get install r-base r-base-dev
-
-Update the installed packages via CRAN:
-
-    sudo R --no-save
-    update.packages(ask=FALSE)
-    q()
-
-Because 3D operations and GUI toolkits can be touchy, it is sometimes helpful to install and test rgl and Rcmdr before adding any other R packages:
-
-    sudo R --no-save
-    install.packages('rgl', dependencies=TRUE)
-    install.packages('car', dependencies=TRUE)
-    install.packages('Rcmdr', dependencies=TRUE)
-    install.packages('RcmdrPlugin.HH', dependencies=TRUE)
-    q()
-    
-Reboot the Neurodebian VM to settle any graphics dependencies that were installed with those packages.
 
 ## Test R 3D and GUI toolkits
 
-Test R, including its 3D and GUI toolkits. None of these shold produce errors:
+Test R, including its 3D and GUI toolkits. None of these should produce errors:
 
-    sudo R --no-save
-    library(rgl)
-    demo(rgl)
-    library(car)
-    library(Rcmdr)
-    (mouse:) Tools -> Load Rcmdr plug-ins... -> RcmdrPlugin.HH
-    (mouse:) Data -> Data in packages -> Read data set from an attached package... -> PACKAGE: datasets, DATA SET: mtcars
-    (mouse:) Data set: mtcars
-    (mouse:) Graphs -> 3d graph -> 3d scatterplot... (HH). DV: mpg, IVs: disp, hp.
-    (mouse:) Graphs -> 3d graph -> Identify observations with mouse...
-    ...or the CLI version of those last two:
-    data(mtcars, package="datasets")
-    scatter3dHH(mtcars$disp, mtcars$mpg, mtcars$hp, fit="linear", bg="white", grid=TRUE, squares=FALSE, xlab="disp", ylab="mpg", zlab="hp")
-    identify3d(mtcars$disp, mtcars$mpg, mtcars$hp, labels=row.names(mtcars))
-
+```
+$ sudo R --no-save
+> library(rgl)
+> demo(rgl)
+> library(car)
+> library(Rcmdr)
+# mouse:
+#     1) Tools -> Load Rcmdr plug-ins... -> RcmdrPlugin.HH
+#     2) Data -> Data in packages -> Read data set from an attached package... -> PACKAGE: datasets, DATA SET: mtcars
+#     3) Data set: mtcars
+#     4) Graphs -> 3d graph -> 3d scatterplot... (HH). DV: mpg, IVs: disp, hp.
+#     5) Graphs -> 3d graph -> Identify observations with mouse...
+#
+# ...or the CLI version of steps 2-5:
+> data(mtcars, package="datasets")
+> scatter3dHH(mtcars$disp, mtcars$mpg, mtcars$hp, fit="linear", bg="white", grid=TRUE, squares=FALSE, xlab="disp", ylab="mpg", zlab="hp")
+> identify3d(mtcars$disp, mtcars$mpg, mtcars$hp, labels=row.names(mtcars))
+> q()
+```
 
 [test R 3D and GUI toolkits]: #test-r-3d-and-gui-toolkits
 
