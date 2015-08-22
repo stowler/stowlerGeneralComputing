@@ -549,8 +549,9 @@ $ sudo R --no-save
 [test R 3D and GUI toolkits]: #test-r-3d-and-gui-toolkits
 
 # Install Matlab
+**UPDATED: 20150822**
 
-Usually I direct download direct from [Matlab](http://www.mathworks.com/). At installation I select these toolboxes to support neuroimaging apps (2 GB download, 5.5 GB install) :
+Usually I direct download direct from [Matlab](http://www.mathworks.com/). At installation I select these toolboxes to support neuroimaging apps (2.3 GB download, 5.5 GB install) :
 
 - bioinformatics toolbox
 - database toolbox
@@ -558,7 +559,21 @@ Usually I direct download direct from [Matlab](http://www.mathworks.com/). At in
 - matlab coder
 - matlab compiler
 - matlab compiler SDK
+- parallel computing toolbox
 - signal processing toolbox
 - statistic and machine learning toolbox
 
 Once Matlab is installed, the command `ver` entered at the Matlab prompt will output a list of installed toolboxes.
+
+## install matlab on linux
+**UPDATED: 20150822**
+
+```bash
+$ cd ~/Downloads
+$ mkdir installMatlab
+$ cd installMatlab
+$ unzip ../matlab_R2015a_glnxa64.zip
+$ sudo ./install
+# I like to install to /opt/MATLAB/${matlabVersion}, like /opt/MATLAB/R2015a
+# and then I allow the installer to create symbolic links in its default /usr/local/bin
+```
