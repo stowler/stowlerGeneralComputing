@@ -523,10 +523,11 @@ $ sudo apt-key add /tmp/jranke_cran.asc
 
 
 ## Test R 3D and GUI toolkits
+**UPDATED: 20150823**
 
 Test R, including its 3D and GUI toolkits. None of these should produce errors:
 
-```
+```bash
 $ sudo R --no-save
 > library(rgl)
 > demo(rgl)
@@ -537,12 +538,12 @@ $ sudo R --no-save
 #     2) Data -> Data in packages -> Read data set from an attached package... -> PACKAGE: datasets, DATA SET: mtcars
 #     3) Data set: mtcars
 #     4) Graphs -> 3d graph -> 3d scatterplot... (HH). DV: mpg, IVs: disp, hp.
-#     5) Graphs -> 3d graph -> Identify observations with mouse...
+#     5) Graphs -> 3d graph -> "Open new 3D grahics window", "Identify observations with mouse", "Show surface grid lines" 
 #
 # ...or the CLI version of steps 2-5:
 > data(mtcars, package="datasets")
 > scatter3dHH(mtcars$disp, mtcars$mpg, mtcars$hp, fit="linear", bg="white", grid=TRUE, squares=FALSE, xlab="disp", ylab="mpg", zlab="hp")
-> identify3d(mtcars$disp, mtcars$mpg, mtcars$hp, labels=row.names(mtcars))
+> Identify3d(mtcars$disp, mtcars$mpg, mtcars$hp, labels=row.names(mtcars))
 > q()
 ```
 
