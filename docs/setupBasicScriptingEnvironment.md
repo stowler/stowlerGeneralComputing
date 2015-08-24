@@ -376,7 +376,7 @@ Each of these packages can be installed on debian/ubuntu linux by typing:
 
 Below is a list of the package names to substitute into the commands above (no square brackets when you actually type/paste these package names into the install command above:)
 
-	curl wget tmux tree htop slurm imagemagick
+	curl wget tmux tree htop slurm parallel imagemagick
 	
 And for OS X only you will also want these:
 
