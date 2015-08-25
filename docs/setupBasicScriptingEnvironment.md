@@ -360,8 +360,7 @@ echo 'eval `dircolors ${HOME}/.dircolors`' >> ${HOME}/.bash_profile
 
 
 
-Install general command-line utilities
-============================================
+# Install general command-line utilities
 
 
 Install these utilities. If you don't know why now, you will. This will take negligible time on debian/ubuntu linux, but about 2.5 hours of macports compiling on a 2.8 GHz i5 iMac.
@@ -380,9 +379,29 @@ Below is a list of the package names to substitute into the commands above (no s
 	
 And for OS X only you will also want these:
 
-	getopt tmux-pasteboard
-	
-...and then, for OS X only, follow these instructions in the top of the default .tmux.conf: 
+	getopt tmux-pasteboard openssh +ssh_copy_id
+
+## export ssh public key to remote hosts
+
+Enable password-less ssh logins to a remote host from your trusted secure client:
+
+```bash
+# generate your public/private rsa key pair:
+$ ssh-keygen
+# ...just keep pressing the enter key...don't enter a password
+
+# export your public key to a remote host to which you would like to have passwordless access:
+$ ssh-copy-id user@remotehost.something
+
+# now you should be able to ssh to the remote host as before, but you won't be
+# prompted for a password:
+$ ssh user@remotehost.something
+
+```
+
+## configure tmux
+
+For OS X only, follow these instructions in the top of the default .tmux.conf: 
 
 	# To enable tmux-MacOSX-pasteboard add following line to ~/.tmux.conf replacing
 	'bash' with your actual shell:
@@ -569,6 +588,8 @@ Once Matlab is installed, the command `ver` entered at the Matlab prompt will ou
 ## install matlab on linux
 **UPDATED: 20150822**
 
+This is the post-download install procedure I use on all flavors of linux:
+
 ```bash
 $ cd ~/Downloads
 $ mkdir installMatlab
@@ -578,3 +599,28 @@ $ sudo ./install
 # I like to install to /opt/MATLAB/${matlabVersion}, like /opt/MATLAB/R2015a
 # and then I allow the installer to create symbolic links in its default /usr/local/bin
 ```
+
+## install matlab on OS X
+
+_TBD: basically the same as linux but I need to confirm that and write up during my next install_
+
+# Install a grid engine
+
+Sometimes you'll be running software that can use a scheduler like Sun Grid Engine or Son of Grid Engine to perform parallel processing across multiple cores of a single host, or even multiple nodes in a cluster.
+
+At the moment my choice of examples below is mostly driven by what works for FSL, which is the primary scheduler-enbabled neruoimaging package I use. (Lazily consolidating my notes here as I deploy new installs).
+
+## Install gridengine on Ubuntu 14.04
+
+
+## Install son of gridengine
+
+TBD
+
+## Install torque
+
+TBD
+
+## Install condor
+
+TBD
