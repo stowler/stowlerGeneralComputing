@@ -606,11 +606,76 @@ _TBD: basically the same as linux but I need to confirm that and write up during
 
 # Install a grid engine
 
-Sometimes you'll be running software that can use a scheduler like Sun Grid Engine or Son of Grid Engine to perform parallel processing across multiple cores of a single host, or even multiple nodes in a cluster.
+Sometimes you'll want to run software that can use a scheduler like Sun Grid Engine or Son of Grid Engine to perform parallel processing across multiple cores of a single host, or even multiple nodes in a cluster.
 
-At the moment my choice of examples below is mostly driven by what works for FSL, which is the primary scheduler-enbabled neruoimaging package I use. (Lazily consolidating my notes here as I deploy new installs).
+At the moment my choice of examples below is driven by what works for FSL, which is the primary scheduler-enbabled neruoimaging package I use. (Lazily consolidating my notes here as I deploy new installs).
 
 ## Install gridengine on Ubuntu 14.04
+
+This is one way to quickly install gridengine from the default Ubuntu 14.04 repos and configure it for an untuned but functional single-queue single-host deployment that will allow parallelized apps to use all of the cores on your multi-core computer.
+
+```bash
+$ sudo apt-get install \
+gridengine-master \
+gridengine-exec \
+gridengine-client \
+gridengine-qmon \
+gridengine-common
+```
+
+The installer will ask you about some configuration options:
+- Postfix: I choose none here, for expediency
+- SGE cell: default
+- SGE master host name: localhost (or the FQDN if your host has one)
+
+The installer will then display some values that you might want to note for configuration of your applications:
+
+```
+Initializing cluster with the following parameters:
+ => SGE_ROOT: /var/lib/gridengine
+ => SGE_CELL: default
+ => Spool directory: /var/spool/gridengine/spooldb
+ => Initial manager user: sgeadmin
+Initializing spool (/var/spool/gridengine/spooldb)
+Initializing global configuration based on /usr/share/gridengine/default-configuration
+Initializing complexes based on /usr/share/gridengine/centry
+Initializing usersets based on /usr/share/gridengine/usersets
+Adding user sgeadmin as a manager
+Cluster creation complete
+```
+
+Now confirm that sge is running:
+```
+$ ps aux | grep sge
+sgeadmin 30785  0.2  0.0  62624  3636 ?        Sl   22:05   0:01 /usr/lib/gridengine/sge_execd
+sgeadmin 30846  0.0  0.0 147276  7216 ?        Sl   22:05   0:00 /usr/lib/gridengine/sge_qmaster
+stowler+ 30910  0.0  0.0  18936  2232 pts/22   S+   22:12   0:00 grep sge
+```
+
+Check whether there are problems related to host name:
+```
+$ qstat
+error: commlib error: access denied (client IP resolved to host name "localhost". This is not identical to clients host name "rama.birc.emory.edu")
+error: unable to contact qmaster using port 6444 on host "rama.birc.emory.edu"
+```
+
+If there are host name problems, resolve them by editing `/etc/hosts` and rebooting:
+```bash
+$ cat /etc/hosts
+127.0.0.1	localhost
+127.0.1.1	rama.birc.emory.edu	rama
+...snip...
+
+# edit /etc/hosts to add the needed fields and then reboot
+
+$ cat /etc/hosts
+127.0.0.1       localhost.localdomain   localhost
+10.231.5.149    rama.birc.emory.edu     rama
+```
+
+Launch gridengine's graphical configuration tool with `sudo qmon`. If its window doesn't appear for a while it may have stopped itself and need to be resumed with `fg`.
+
+Unfortunately there are known bugs that prevent the GUI's button from being drawn in Ubuntu 14.04 (the terminal from which you launch it will show `Warning: Cannot convert string "intro" to type Pixmap`). Fortunately you can still launch components of qmon using the Task menu.
 
 
 ## Install son of gridengine
